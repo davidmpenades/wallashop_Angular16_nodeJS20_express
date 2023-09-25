@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HomeRoutingModule } from './home/home-routing.module';
 import { FooterComponent, HeaderComponent, SharedModule } from './shared';
+import { NgxBootstrapIconsModule, allIcons } from 'ngx-bootstrap-icons';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,7 @@ import { FooterComponent, HeaderComponent, SharedModule } from './shared';
     HomeRoutingModule,
     ReactiveFormsModule,
     SharedModule,
-    
+    NgxBootstrapIconsModule.pick(allIcons)
   ],
   providers: [],
   bootstrap: [AppComponent]
