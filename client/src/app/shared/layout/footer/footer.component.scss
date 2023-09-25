@@ -3,4 +3,17 @@
   color: white;
   text-align: center;
   padding: 10px;
+  .cont-logo {
+    .logo2 {
+      width: 50px;
+    }
+    .logo1 {
+      width: 130px;
+    }
+  }
+  .dat {
+    &:first-child {
+      border-bottom: 1px solid #6f6f6f;
+    }
+  }
 }
