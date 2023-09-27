@@ -53,6 +53,28 @@ readProducts = asyncHandler(async (req, res) => {
   });
 });
 
+readProductsWithCategory = asyncHandler(async (req, res) => {
+  const { slug } = req.body;
+
+  const category = await Category.findOne({ slug }).exec();
+  if (!category) {
+    return res.status(401).json({
+      message: "Category not found!",
+    });
+  }
+
+  return await res.status(200).json({
+    products: await Promise.all(
+      category.products.map(async (productSlug) => {
+        const productObj = await Product.findById(productSlug).exec();
+
+        const res = await productObj.toProductResponse();
+        return res;
+      })
+    ),
+  });
+});
+
 deleteProduct = asyncHandler(async (req, res) => {
   const { slug } = req.body;
 
@@ -75,5 +97,6 @@ const productController = {
   createProduct,
   readProducts,
   deleteProduct,
+  readProductsWithCategory,
 };
 module.exports = productController;

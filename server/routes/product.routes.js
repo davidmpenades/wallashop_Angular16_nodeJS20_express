@@ -2,6 +2,7 @@ const {
   readProducts,
   createProduct,
   deleteProduct,
+  readProductsWithCategory
 } = require("../controllers/products.controller");
 
 module.exports = function (app) {
@@ -20,6 +21,8 @@ module.exports = function (app) {
     createProduct // llamamos a la funcion del controlador
   );
   app.get("/product", [], readProducts);
+
+  app.post("/productsByCategory",[], readProductsWithCategory )
 
   app.delete("/product", [], deleteProduct);
 };
