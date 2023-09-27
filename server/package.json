@@ -1,0 +1,21 @@
+{
+  "name": "wallashop",
+  "version": "1.0.0",
+  "description": "Venta de articulos",
+  "main": "server.js",
+  "scripts": {
+    "dev": "node --env-file=config/.env --watch server.js",
+    "start": "node server.js"
+  },
+  "author": "Kevin/David",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "express-async-handler": "^1.2.0",
+    "mongoose": "^7.5.3",
+    "mongoose-unique-validator": "^4.0.0",
+    "slugify": "^1.6.6"
+  },
+  "keywords": []
+}
