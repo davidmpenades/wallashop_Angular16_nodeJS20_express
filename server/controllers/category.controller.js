@@ -30,7 +30,7 @@ deleteCategory = asyncHandler(async (req, res) => {
 
   console.log(slug);
 
-  const category = await Category.findOne({slug}).exec();
+  const category = await Category.findOne({ slug }).exec();
 
   console.log(category);
 
@@ -53,10 +53,15 @@ readCategories = asyncHandler(async (req, res) => {
       message: "Category Not Found",
     });
   }
-  res.status(200).json({
-    categories: readCategory,
+  return res.status(200).json({
+    category: await Promise.all(
+      readCategory.map(async (category) => {
+        return await category.toCategoryResponse();
+      })
+    ),
   });
 });
+
 const categoryController = {
   createCategory,
   deleteCategory,
