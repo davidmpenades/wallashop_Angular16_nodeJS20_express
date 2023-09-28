@@ -47,15 +47,15 @@ deleteCategory = asyncHandler(async (req, res) => {
 });
 
 readCategories = asyncHandler(async (req, res) => {
-  const readCategory = await Category.find().exec();
-  if (!readCategory) {
+  const categories = await Category.find().exec();
+  if (!categories) {
     return res.status(401).json({
       message: "Category Not Found",
     });
   }
-  res.status(200).json({
-    categories: readCategory,
-  });
+  res.status(200).json(
+    categories,
+  );
 });
 const categoryController = {
   createCategory,

@@ -7,4 +7,11 @@ import { Component } from '@angular/core';
 })
 export class HomeComponent {
 
+  data = [
+    { image: 'imagen1.jpg', caption: 'Slide 1' },
+    { image: 'imagen2.jpg', caption: 'Slide 2' },
+    { image: 'imagen3.jpg', caption: 'Slide 3' }
+  ];
+
+
 }

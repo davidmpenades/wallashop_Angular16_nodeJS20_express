@@ -48,9 +48,9 @@ readProducts = asyncHandler(async (req, res) => {
       message: "Product Not Found",
     });
   }
-  res.status(200).json({
-    product: readProducts,
-  });
+  res.status(200).json(
+    readProducts,
+  );
 });
 
 deleteProduct = asyncHandler(async (req, res) => {
