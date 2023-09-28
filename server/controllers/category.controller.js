@@ -53,13 +53,13 @@ readCategories = asyncHandler(async (req, res) => {
       message: "Category Not Found",
     });
   }
-  return res.status(200).json({
-    category: await Promise.all(
+  return res.status(200).json(
+     await Promise.all(
       readCategory.map(async (category) => {
         return await category.toCategoryResponse();
       })
     ),
-  });
+  );
 });
 
 const categoryController = {

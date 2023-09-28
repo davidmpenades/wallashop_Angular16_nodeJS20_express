@@ -48,9 +48,13 @@ readProducts = asyncHandler(async (req, res) => {
       message: "Product Not Found",
     });
   }
-  res.status(200).json({
-    product: readProducts,
-  });
+  return res.status(200).json(
+    await Promise.all(
+     readProducts.map(async (product) => {
+       return await product.toProductResponse();
+     })
+   ),
+ );
 });
 
 readProductsWithCategory = asyncHandler(async (req, res) => {
@@ -63,8 +67,8 @@ readProductsWithCategory = asyncHandler(async (req, res) => {
     });
   }
 
-  return await res.status(200).json({
-    products: await Promise.all(
+  return await res.status(200).json(
+     await Promise.all(
       category.products.map(async (productSlug) => {
         const productObj = await Product.findById(productSlug).exec();
 
@@ -72,7 +76,7 @@ readProductsWithCategory = asyncHandler(async (req, res) => {
         return res;
       })
     ),
-  });
+  );
 });
 
 deleteProduct = asyncHandler(async (req, res) => {
