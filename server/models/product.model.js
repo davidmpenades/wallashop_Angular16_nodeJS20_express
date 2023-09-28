@@ -36,7 +36,7 @@ module.exports = (mongoose, slugify, uniqueValidator) => {
       title: this.title,
       description: this.description,
       price: this.price,
-      img: this.img,
+      imgs: this.imgs,
       category: this.category,
     };
   };

@@ -47,15 +47,15 @@ deleteCategory = asyncHandler(async (req, res) => {
 });
 
 readCategories = asyncHandler(async (req, res) => {
-  const readCategory = await Category.find().exec();
-  if (!readCategory) {
+  const categories = await Category.find().exec();
+  if (!categories) {
     return res.status(401).json({
       message: "Category Not Found",
     });
   }
   return res.status(200).json(
      await Promise.all(
-      readCategory.map(async (category) => {
+      categories.map(async (category) => {
         return await category.toCategoryResponse();
       })
     ),
