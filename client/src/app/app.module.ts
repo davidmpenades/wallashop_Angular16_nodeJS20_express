@@ -7,6 +7,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HomeRoutingModule } from './home/home-routing.module';
 import { FooterComponent, HeaderComponent, SharedModule } from './shared';
 import { NgxBootstrapIconsModule, allIcons } from 'ngx-bootstrap-icons';
+import { ShopRoutingModule } from './shop/shop-routing.module';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -18,9 +20,11 @@ import { NgxBootstrapIconsModule, allIcons } from 'ngx-bootstrap-icons';
     BrowserModule,
     AppRoutingModule,
     HomeRoutingModule,
+    ShopRoutingModule,
     ReactiveFormsModule,
     SharedModule,
-    NgxBootstrapIconsModule.pick(allIcons)
+    NgxBootstrapIconsModule.pick(allIcons),
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

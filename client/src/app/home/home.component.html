@@ -1,4 +1,16 @@
-<app-search></app-search>
-<app-category></app-category>
-<!-- <app-more-visited></app-more-visited> -->
-<router-outlet></router-outlet>
+<div class="container">
+  <div class="row">
+    <app-search></app-search>
+  </div>
+  <div class="row">
+    <app-list-categories></app-list-categories>
+    <app-carrousel [items]="data">
+      <ng-container *ngFor="let item of data">
+        <div class="col-sm-3 col-md-4 col-lg-3">
+          <app-card-carrousel [card]="item"></app-card-carrousel>
+        </div>
+      </ng-container>
+
+    </app-carrousel>
+  </div>
+</div>

@@ -10,7 +10,7 @@ module.exports = (mongoose, slugify, uniqueValidator) => {
       img: String,
       products: [
         {
-          type: mongoose.Schema.Types.ObjectId, //   preguntar a yolanda sobre slug
+          type: mongoose.Schema.Types.ObjectId,
           ref: "product",
         },
       ],
