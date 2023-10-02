@@ -21,7 +21,7 @@ export class ProductService {
   }
 
   getBySlug(slug: string): Observable<Product> {
-    return this.apiService.getBySlug('/product', slug)
+    return this.apiService.getBySlug('/product/detail', slug)
   }
 
   getBySlugCategory(slug: string): Observable<Product[]> {

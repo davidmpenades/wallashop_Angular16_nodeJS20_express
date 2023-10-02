@@ -9,6 +9,7 @@ import { FooterComponent, HeaderComponent, SharedModule } from './shared';
 import { NgxBootstrapIconsModule, allIcons } from 'ngx-bootstrap-icons';
 import { ShopRoutingModule } from './shop/shop-routing.module';
 import { HttpClientModule } from '@angular/common/http';
+import { DetailProductModule } from './detail-product/detail-product.module';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { HttpClientModule } from '@angular/common/http';
     AppRoutingModule,
     HomeRoutingModule,
     ShopRoutingModule,
+    DetailProductModule,
     ReactiveFormsModule,
     SharedModule,
     NgxBootstrapIconsModule.pick(allIcons),

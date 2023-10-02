@@ -2,7 +2,8 @@ const {
   readProducts,
   createProduct,
   deleteProduct,
-  readProductsWithCategory
+  readProductsWithCategory,
+  readProductWithSlug,
 } = require("../controllers/products.controller");
 
 module.exports = function (app) {
@@ -14,13 +15,15 @@ module.exports = function (app) {
     next();
   });
   //creamos los metodos
-  //creamo una producto
+  //creamos un producto
   app.post(
     "/product", // ruta para acceder
     [], // middlewares
     createProduct // llamamos a la funcion del controlador
   );
   app.get("/product", [], readProducts);
+
+  app.post("/product/detail",[], readProductWithSlug)
 
   app.post("/productsByCategory",[], readProductsWithCategory )
 

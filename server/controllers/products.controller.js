@@ -52,8 +52,19 @@ readProducts = asyncHandler(async (req, res) => {
       readProducts.map(async (product) => {
         return await product.toProductResponse();
       })
-    ),
+    )
   );
+});
+
+readProductWithSlug = asyncHandler(async (req, res) => {
+  const { slug } = req.body;
+  const product = await Product.findOne({ slug }).exec();
+  if (!product) {
+    return res.status(401).json({
+      message: "Product not found!",
+    });
+  }
+  return res.status(200).json(await product.toProductResponse());
 });
 
 readProductsWithCategory = asyncHandler(async (req, res) => {
@@ -69,10 +80,11 @@ readProductsWithCategory = asyncHandler(async (req, res) => {
     await Promise.all(
       category.products.map(async (productSlug) => {
         const productObj = await Product.findById(productSlug).exec();
+        console.log(productObj);
         const res = await productObj.toProductResponse();
         return res;
       })
-    ),
+    )
   );
 });
 
@@ -99,5 +111,6 @@ const productController = {
   readProducts,
   deleteProduct,
   readProductsWithCategory,
+  readProductWithSlug,
 };
 module.exports = productController;
