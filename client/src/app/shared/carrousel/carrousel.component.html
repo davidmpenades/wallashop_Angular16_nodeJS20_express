@@ -1,7 +1,16 @@
- <div class="carrousel">
+ <div class="carrousel row" #elementRow>
   <ng-content></ng-content>
-</div>
 
-<button class="btn-av" (click)="prevSlide()">Anterior</button>
-{{currentIndex}}
-<button class="btn-ne" (click)="nextSlide()">Siguiente</button>
+</div>
+<div class="btn-layout btn-av" (click)="prevSlide()">
+  <i-bs name="arrow-left-circle"
+    width="50"
+    height="50">
+  </i-bs>
+</div>
+<div class="btn-layout btn-ne" (click)="nextSlide()">
+  <i-bs name="arrow-right-circle"
+    width="50"
+    height="50">
+  </i-bs>
+</div>
