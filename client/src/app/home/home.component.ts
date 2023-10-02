@@ -1,20 +1,36 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Category, CategoryService } from '../core';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit {
 
-  data = [
-    { image: 'imagen1.jpg', caption: 'Slide 1' },
-    { image: 'imagen2.jpg', caption: 'Slide 2' },
-    { image: 'imagen3.jpg', caption: 'Slide 3' },
-    { image: 'imagen4.jpg', caption: 'Slide 4' },
-    { image: 'imagen5.jpg', caption: 'Slide 5' },
-    { image: 'imagen6.jpg', caption: 'Slide 6' }
-  ];
+  categories!: Category[]
 
+  constructor(
+    private categoryService: CategoryService
+  ){}
+
+  ngOnInit(): void {
+    this.getCategories()
+  }
+
+  getCategories() {
+    this.categoryService.get().subscribe({
+      next: (data) => {
+        this.categories = data
+      }
+    })
+  }
+
+  carrousel = {
+    res: {
+      md: 4,
+      lg: 3
+    }
+  }
 
 }

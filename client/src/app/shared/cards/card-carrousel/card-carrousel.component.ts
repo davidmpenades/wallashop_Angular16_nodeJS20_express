@@ -10,4 +10,6 @@ export class CardCarrouselComponent {
   @Input() active = false
   @Input() card?: any
 
+
+
 }
