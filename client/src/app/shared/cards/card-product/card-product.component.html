@@ -1,8 +1,44 @@
-<div class="card" [routerLink]="['/product', data.slug]">
+<!-- <div class="card" [routerLink]="['/detail', data.slug]">
   <div class="container m-3 p-0">
     <img src="{{data.imgs[0]}}" class="" alt="...">
   </div>
   <div class="card-body text-center">
     <p class="">{{data.title}}</p>
   </div>
+</div> -->
+<div class="container" >
+  <figure class="card card-product-grid card-lg" [routerLink]="['/detail', data.slug]">
+    <img src="{{ data.imgs[0] }}" />
+
+    <figcaption class="info-wrap">
+      <div class="row-4">
+        <div class="col-md-9 col-xs-9">{{ data.title }}</div>
+        <div class="col-md-3 col-xs-3">
+          <div class="rating text-right">
+            <i class="fa fa-star"></i> <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i> <i class="fa fa-star"></i>
+            <span class="rated">Rated 4.0/5</span>
+          </div>
+        </div>
+      </div>
+    </figcaption>
+    <div class="bottom-wrap-payment">
+      <figcaption class="info-wrap">
+        <div class="row">
+          <div class="col-md-9 col-xs-9">{{ data.price }} €</div>
+        </div>
+      </figcaption>
+    </div>
+    <div class="bottom-wrap row-4">
+      <a href="#" class="btn btn-outline-primary float-right" data-abc="true">
+        Buy now
+      </a>
+
+      <div class="price-wrap">
+        <a href="#" class="btn btn-outline-danger float-left" data-abc="true">
+          Cancel
+        </a>
+      </div>
+    </div>
+  </figure>
 </div>
