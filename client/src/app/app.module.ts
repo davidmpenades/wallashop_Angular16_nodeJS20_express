@@ -12,11 +12,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { DetailProductModule } from './detail-product/detail-product.module';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    HeaderComponent,
-    FooterComponent
-  ],
+  declarations: [AppComponent, HeaderComponent, FooterComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -26,9 +22,9 @@ import { DetailProductModule } from './detail-product/detail-product.module';
     ReactiveFormsModule,
     SharedModule,
     NgxBootstrapIconsModule.pick(allIcons),
-    HttpClientModule
+    HttpClientModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

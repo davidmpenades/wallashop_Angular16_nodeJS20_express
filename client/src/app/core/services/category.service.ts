@@ -16,8 +16,8 @@ export class CategoryService {
     return this.apiService.set('/category', data)
   }
 
-  get(): Observable<Category[]> {
-    return this.apiService.get('/category')
+  get(params:any): Observable<Category[]> {
+    return this.apiService.get('/category', params)
   }
 
   getBySlug(slug: string): Observable<Category> {

@@ -41,7 +41,11 @@ createProduct = asyncHandler(async (req, res) => {
 });
 
 readProducts = asyncHandler(async (req, res) => {
-  const readProducts = await Product.find().exec();
+  let query = {} 
+  const offset = req.query.offset ? req.query.offset : 0
+  const limit = req.query.limit ? req.query.limit : 4
+
+  const readProducts = await Product.find(query).limit(limit).skip(offset).exec();
   if (!readProducts) {
     return res.status(401).json({
       message: "Product Not Found",

@@ -14,13 +14,13 @@ import { NgxBootstrapIconsModule, allIcons } from 'ngx-bootstrap-icons';
     CarrouselComponent,
     CardCarrouselComponent,
     ListCategoriesComponent,
-    CardCategoryComponent
+    CardCategoryComponent,
   ],
   imports: [
     CommonModule,
     HomeRoutingModule,
     SharedModule,
-    NgxBootstrapIconsModule.pick(allIcons)
+    NgxBootstrapIconsModule.pick(allIcons),
   ]
 })
 export class HomeModule { }
