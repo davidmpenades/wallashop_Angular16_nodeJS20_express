@@ -10,6 +10,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class DetailProductComponent {
   product!: Product;
+  images!: String[];
 
   constructor(
     private productService: ProductService,
@@ -28,6 +29,7 @@ export class DetailProductComponent {
     this.productService.getBySlug(prod).subscribe({
       next: (data) => {
         this.product = data;
+        this.images = this.product.imgs
       },
     });
   }

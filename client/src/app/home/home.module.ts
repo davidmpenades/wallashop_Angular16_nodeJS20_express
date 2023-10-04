@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { HomeRoutingModule } from './home-routing.module';
-import { CardCarrouselComponent, CardCategoryComponent, CarrouselComponent, ListCategoriesComponent, SearchComponent, SharedModule } from '../shared';
+import { CardCategoryComponent, ListCategoriesComponent, SearchComponent, SharedModule } from '../shared';
 import { HomeComponent } from './home.component';
 import { NgxBootstrapIconsModule, allIcons } from 'ngx-bootstrap-icons';
 
@@ -11,8 +11,6 @@ import { NgxBootstrapIconsModule, allIcons } from 'ngx-bootstrap-icons';
   declarations: [
     HomeComponent,
     SearchComponent,
-    CarrouselComponent,
-    CardCarrouselComponent,
     ListCategoriesComponent,
     CardCategoryComponent,
   ],
