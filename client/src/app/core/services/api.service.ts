@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
@@ -13,8 +13,8 @@ export class ApiService {
     return this.http.post(`${environment.api_url}${path}`, data);
   }
 
-  get(path: string): Observable<any> {
-    return this.http.get(`${environment.api_url}${path}`);
+  get(path: string, params: HttpParams = new HttpParams()): Observable<any> {
+    return this.http.get(`${environment.api_url}${path}`,{params});
   }
 
   getBySlug(path: string, slug: string): Observable<any> {
