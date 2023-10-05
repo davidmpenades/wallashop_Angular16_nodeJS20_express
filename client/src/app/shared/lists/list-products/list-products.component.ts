@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ProductService } from 'src/app/core';
+import { Category, CategoryService, ProductService } from 'src/app/core';
+import { Filters } from 'src/app/core/model/filters.model';
 import { Product } from 'src/app/core/model/product.model';
 
 
@@ -12,20 +13,32 @@ import { Product } from 'src/app/core/model/product.model';
 export class ListProductsComponent implements OnInit {
 
   products: Product[] = []
-  offset = 0
-  limit = 8
+  categories: Category[] = []
+  
+  filters: Filters = {
+    limit: 8,
+    offset: 0,
+    text: '',
+    price_max: 0,
+    price_min: 0,
+    category: '',
+  };
+
   constructor(
     private productService: ProductService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private categoryService: CategoryService,
   ) { }
 
   categ = this.route.snapshot.paramMap.get('slug')
 
   ngOnInit(): void {
-    this.controller()
+    this.controller({})
+    this.getCateries()
   }
 
-  controller(){
+  controller(filters?:any){
+  this.filters = filters
     if (this.categ) {
       this.getProductsByCategory(this.categ)
     } else {
@@ -42,23 +55,35 @@ export class ListProductsComponent implements OnInit {
   }
 
   getProducts() {
-    const params = this.getRequestParams(this.offset, this.limit)
+    const params = this.getRequestParams()
 
     this.productService.get(params).subscribe({
       next: (data) => {
-        
+       
         this.products = this.products.concat(data)
-        this.offset = this.offset + 8
+        this.filters.offset = this.filters.offset + 8
       }
     })
   }
-  getRequestParams(offset: number, limit: number): any {
+  getRequestParams(): any {
     let params: any = {};
 
-    params[`offset`] = offset;
-    params[`limit`] = limit;
+    params[`offset`] = this.filters.offset;
+    params[`limit`] = this.filters.limit;
+    params[`price_min`] = this.filters.price_min
+    params[`price_max`] = this.filters.price_max
+    params[`text`] = this.filters.text
+    params[`category`] = this.filters.category
+
 
     return params;
+  }
+  getCateries(){
+    this.categoryService.get({}).subscribe({
+      next:(data) => {
+        this.categories = data        
+      }
+    })
   }
   scroll(){    
     this.controller()

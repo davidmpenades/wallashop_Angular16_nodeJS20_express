@@ -1,16 +1,24 @@
-<h1>Productos</h1>
-<div
-  class="container"
-  infinite-scroll
-  [infiniteScrollDistance]="1"
-  [infiniteScrollThrottle]="5" 
-  (scrolled)="scroll()">
-  <div class="row">
+<!-- <h1>Productos</h1> -->
+<div class="row">
+  <div class="col-md-3 col-lg-3">
+    <app-filter (sendFilters)="controller($event)" [categories]="categories"></app-filter>
+  </div>
+  <div class="col-md-9 col-lg-9">
     <div
-      class="col-sm-3 col-md-4 col-lg-3 mt-3"
-      *ngFor="let product of products"
+      class="container"
+      infinite-scroll
+      [infiniteScrollDistance]="1"
+      [infiniteScrollThrottle]="50"
+      (scrolled)="scroll()"
     >
-      <app-card-product class="" [data]="product"></app-card-product>
+      <div class="row">
+        <div
+          class="col-sm-3 col-md-4 col-lg-4 mt-3"
+          *ngFor="let product of products"
+        >
+          <app-card-product class="" [data]="product"></app-card-product>
+        </div>
+      </div>
     </div>
   </div>
 </div>

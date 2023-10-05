@@ -9,12 +9,12 @@ import { SharedModule } from '../shared';
 
 @NgModule({
   declarations: [
-    ShopComponent
+    ShopComponent,
   ],
   imports: [
     CommonModule,
     ShopRoutingModule,
-    SharedModule,
+    SharedModule,    
     NgxBootstrapIconsModule.pick(allIcons)
   ]
 })

@@ -28,11 +28,9 @@ createCategory = asyncHandler(async (req, res) => {
 deleteCategory = asyncHandler(async (req, res) => {
   const { slug } = req.body;
 
-  console.log(slug);
 
   const category = await Category.findOne({ slug }).exec();
 
-  console.log(category);
 
   if (!category) {
     return res.status(401).json({

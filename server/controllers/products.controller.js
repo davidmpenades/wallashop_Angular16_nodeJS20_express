@@ -84,7 +84,6 @@ readProductsWithCategory = asyncHandler(async (req, res) => {
     await Promise.all(
       category.products.map(async (productSlug) => {
         const productObj = await Product.findById(productSlug).exec();
-        console.log(productObj);
         const res = await productObj.toProductResponse();
         return res;
       })

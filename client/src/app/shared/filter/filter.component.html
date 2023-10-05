@@ -1,0 +1,18 @@
+<div class="p-2">
+    <!-- Categorías -->
+    <div class="mb-3">
+        <h4>Categorías</h4>
+        <select class="form-select">
+            <option selected>Todas las categorías</option>
+            <option *ngFor="let category of categories">{{category.title}}</option>
+            
+        </select>
+    </div>
+    
+    <!-- Precios -->
+    <div class="mb-3">
+        <h4>Precios</h4>
+        <input [(ngModel)]="filters.price_min" type="number" (change)="setFilters()" name="precio_min" class="form-control" id="precio_min" placeholder="precio minimo">
+        <input type="number" class="form-control mt-3" id="precio_max" placeholder="precio maximo">
+    </div>
+</div>

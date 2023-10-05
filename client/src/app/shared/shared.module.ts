@@ -7,6 +7,9 @@ import { RouterModule } from '@angular/router';
 import { NgxBootstrapIconsModule, allIcons } from 'ngx-bootstrap-icons';
 import { HttpClientModule } from '@angular/common/http';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { FilterComponent } from './filter/filter.component';
+import { SearchComponent } from './search/search.component';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -14,20 +17,28 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
     ListProductsComponent,
     CardProductComponent,
     CarrouselComponent,
-    CardCarrouselComponent
+    CardCarrouselComponent,
+    FilterComponent,
+    SearchComponent,
+    
   ],
   imports: [
     CommonModule,
     RouterModule,
     NgxBootstrapIconsModule.pick(allIcons),
     HttpClientModule,
-    InfiniteScrollModule
+    InfiniteScrollModule,
+    FormsModule
   ],
   exports: [
     ListProductsComponent,
     CardProductComponent,
     CarrouselComponent,
-    CardCarrouselComponent
+    CardCarrouselComponent,
+    FilterComponent,
+    SearchComponent,
+    CommonModule,
+    FormsModule
   ],
 })
 export class SharedModule { }
