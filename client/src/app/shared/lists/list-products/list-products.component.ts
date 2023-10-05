@@ -46,9 +46,11 @@ export class ListProductsComponent implements OnInit {
 
     this.productService.get(params).subscribe({
       next: (data) => {
-        
-        this.products = this.products.concat(data)
-        this.offset = this.offset + 8
+        console.log(data);
+
+        this.products = this.products.concat(data.products)
+        this.limit = 4
+        this.offset = this.offset + 4
       }
     })
   }
@@ -60,7 +62,7 @@ export class ListProductsComponent implements OnInit {
 
     return params;
   }
-  scroll(){    
+  scroll(){
     this.controller()
   }
 }
