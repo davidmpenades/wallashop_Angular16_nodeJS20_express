@@ -8,7 +8,6 @@ const Product = mdb.product;
 const Category = mdb.category;
 
 // creamos la funcion de crear product
-
 createProduct = asyncHandler(async (req, res) => {
   const { title, description, price, imgs, category } = req.body;
 
@@ -40,24 +39,54 @@ createProduct = asyncHandler(async (req, res) => {
   });
 });
 
+// Read All Products
 readProducts = asyncHandler(async (req, res) => {
-  let query = {} 
-  const offset = req.query.offset ? req.query.offset : 0
-  const limit = req.query.limit ? req.query.limit : 4
+  const { text = null, price_min = 0, price_max = 0, offset = 0, limit = 8 } = req.query
+
+  let query = {
+    $and: [
+      {
+        price: {
+          $gte: price_min
+        }
+      }
+    ]
+  }
+  if (price_min < price_max) {
+    query.$and.push({price:{$gte:price_max}})
+  }
+
+  if (text) {
+    query.$or = [
+      {
+        title: {
+          $regex: text
+        }
+      },
+      {
+        description: {
+          $regex: text
+        }
+      }
+    ]
+  }
 
   const readProducts = await Product.find(query).limit(limit).skip(offset).exec();
+  const readProductsCount = await Product.find(query).countDocuments();
+
   if (!readProducts) {
     return res.status(401).json({
       message: "Product Not Found",
     });
   }
-  return res.status(200).json(
-    await Promise.all(
+  return res.status(200).json({
+    products: await Promise.all(
       readProducts.map(async (product) => {
         return await product.toProductResponse();
       })
-    )
-  );
+    ),
+    total_products: readProductsCount
+  });
 });
 
 readProductWithSlug = asyncHandler(async (req, res) => {
@@ -71,6 +100,7 @@ readProductWithSlug = asyncHandler(async (req, res) => {
   return res.status(200).json(await product.toProductResponse());
 });
 
+// 
 readProductsWithCategory = asyncHandler(async (req, res) => {
   const { slug } = req.body;
   const category = await Category.findOne({ slug }).exec();
@@ -84,7 +114,6 @@ readProductsWithCategory = asyncHandler(async (req, res) => {
     await Promise.all(
       category.products.map(async (productSlug) => {
         const productObj = await Product.findById(productSlug).exec();
-        console.log(productObj);
         const res = await productObj.toProductResponse();
         return res;
       })
@@ -92,6 +121,7 @@ readProductsWithCategory = asyncHandler(async (req, res) => {
   );
 });
 
+// Eliminar producto
 deleteProduct = asyncHandler(async (req, res) => {
   const { slug } = req.body;
 
