@@ -16,7 +16,6 @@ export class ProductService {
   }
 
   get(params: any): Observable<{products: Product[], total_products: number}> {
-    
     return this.apiService.get('/product', params);
   }
 

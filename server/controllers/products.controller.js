@@ -41,7 +41,9 @@ createProduct = asyncHandler(async (req, res) => {
 
 // Read All Products
 readProducts = asyncHandler(async (req, res) => {
+
   const { text = null, price_min = 0, price_max = 0, offset = 0, limit = 8, category = null } = req.query
+
 
   let query = {
     $and: [
@@ -52,6 +54,7 @@ readProducts = asyncHandler(async (req, res) => {
       }
     ]
   }
+
   if (parseInt (price_min) < parseInt(price_max)) {
     query.$and.push({price:{$lte:price_max}})
   }

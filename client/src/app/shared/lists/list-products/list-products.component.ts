@@ -125,6 +125,7 @@ export class ListProductsComponent implements OnInit {
 
     return params;
   }
+
   getCategories() {
     this.categoryService.get({}).subscribe({
       next: (data) => {
