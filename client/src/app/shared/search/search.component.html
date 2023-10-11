@@ -1,7 +1,7 @@
 <div class="container">
     <div class="input-box">
         <i class="uil uil-search"></i>
-        <input type="text" placeholder="Search here products, category, ......" />
-        <button class="button">Search</button>
+        <input [(ngModel)]="filters.text" type="text" placeholder="Search here products, category, ......" />
+        <button (click)="sendSearch()" class="button">Search</button>
       </div>
 </div>

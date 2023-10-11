@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Product } from '../model/product.model';
 import { ApiService } from './api.service';
+import { Filters } from '../model/filters.model';
+import { HttpParams } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
@@ -23,6 +25,12 @@ export class ProductService {
 
   getBySlugCategory(slug: string): Observable<Product[]> {
     return this.apiService.getBySlug('/productsByCategory', slug);
+  }
+  
+  getProductsWithFilters(filters: Filters): Observable<{products:Product[], total_products: number}>{
+    let params = {}
+    params = filters    
+    return this.apiService.get('product', new HttpParams({fromObject: params}))
   }
 
   deleteProduct(slug: string): Observable<any> {

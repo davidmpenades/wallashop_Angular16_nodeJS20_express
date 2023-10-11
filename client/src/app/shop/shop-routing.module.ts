@@ -14,6 +14,10 @@ const routes: Routes = [
   {
     path: "category",
     component: ShopComponent
+  },
+  {
+    path: "filters/:fil",
+    component:ShopComponent
   }
 ];
 

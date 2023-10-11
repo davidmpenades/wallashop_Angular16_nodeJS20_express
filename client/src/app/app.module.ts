@@ -22,7 +22,7 @@ import { DetailProductModule } from './detail-product/detail-product.module';
     ReactiveFormsModule,
     SharedModule,
     NgxBootstrapIconsModule.pick(allIcons),
-    HttpClientModule,
+    HttpClientModule,    
   ],
   providers: [],
   bootstrap: [AppComponent],
