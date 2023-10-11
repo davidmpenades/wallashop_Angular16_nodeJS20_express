@@ -15,9 +15,8 @@ export class ProductService {
     return this.apiService.set('/product', data);
   }
 
-  
-
-  get(params: any): Observable<Product[]> {
+  get(params: any): Observable<{products: Product[], total_products: number}> {
+    
     return this.apiService.get('/product', params);
   }
 
@@ -31,7 +30,7 @@ export class ProductService {
   
   getProductsWithFilters(filters: Filters): Observable<{products:Product[], total_products: number}>{
     let params = {}
-    params = filters
+    params = filters    
     return this.apiService.get('product', new HttpParams({fromObject: params}))
   }
 

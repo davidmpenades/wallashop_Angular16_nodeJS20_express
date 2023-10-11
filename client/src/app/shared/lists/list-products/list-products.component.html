@@ -1,23 +1,67 @@
 <!-- <h1>Productos</h1> -->
 <div class="row">
-  <div class="col-md-3 col-lg-3">
-    <app-filter (sendFilters)="controller($event)" [categories]="categories"></app-filter>
+  <div class="col-md-3 col-lg-3" *ngIf="filtersOn">
+    <app-filter
+      [categories]="categories"
+      (newtitleCategory)="setTitle($event)"
+    ></app-filter>
   </div>
-  <div class="col-md-9 col-lg-9">
+  <div
+    [ngClass]="{
+      'col-md-9 col-lg-9': filtersOn,
+      'col-md-12 col-lg-12': !filtersOn
+    }"
+  >
+    <h3>{{ titleCategory }}</h3>
+    
     <div
       class="container"
       infinite-scroll
-      [infiniteScrollDistance]="1"
-      [infiniteScrollThrottle]="50"
+      [infiniteScrollDistance]="2"
+      [infiniteScrollThrottle]="150"
+      [scrollWindow]="true"
       (scrolled)="scroll()"
     >
       <div class="row">
         <div
           class="col-sm-3 col-md-4 col-lg-4 mt-3"
-          *ngFor="let product of products"
+          *ngFor="let product of products" 
+          
         >
+
           <app-card-product class="" [data]="product"></app-card-product>
         </div>
+        <div *ngIf="products.length == 0"><h2>Not found products! Bequerol!! Busca be!!</h2></div>
+      </div>
+    </div>
+    <div class="container" *ngIf="!scrollOn">
+      <div class="row">
+        <nav aria-label="Paginación" class="d-flex">
+          <ul class="pagination m-auto my-3">
+            <li
+              class="page-item"
+              [ngClass]="{ disabled: currentPage < 2 }"
+              (click)="setPage(currentPage - 1)"
+            >
+              <a class="page-link" tabindex="-1">Anterior</a>
+            </li>
+            <li
+              class="page-item"
+              [ngClass]="{ active: currentPage == page }"
+              *ngFor="let page of pages"
+              (click)="setPage(page)"
+            >
+              <a class="page-link">{{ page }}</a>
+            </li>
+            <li
+              class="page-item"
+              [ngClass]="{ disabled: currentPage > pages.length - 1 }"
+              (click)="setPage(currentPage + 1)"
+            >
+              <a class="page-link">Siguiente</a>
+            </li>
+          </ul>
+        </nav>
       </div>
     </div>
   </div>
