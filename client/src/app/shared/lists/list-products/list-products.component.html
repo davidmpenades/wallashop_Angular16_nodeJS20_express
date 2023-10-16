@@ -22,12 +22,13 @@
       <div class="row">
         <div
           class="col-sm-3 col-md-4 col-lg-4 mt-3"
-          *ngFor="let product of products">
-
-          <app-card-product class [data]="product"></app-card-product>
+          *ngFor="let product of products"
+        >
+          <app-card-product class="" [data]="product"></app-card-product>
         </div>
-        <div *ngIf="products.length == 0"><h2>Not found products! Bequerol!!
-            Busca be!!</h2></div>
+        <div *ngIf="products.length == 0">
+          <h2>Not found products! Bequerol!! Busca be!!</h2>
+        </div>
       </div>
     </div>
     <div class="container" *ngIf="!scrollOn">
