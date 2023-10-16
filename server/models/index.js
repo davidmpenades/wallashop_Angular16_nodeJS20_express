@@ -2,6 +2,7 @@ const mdbConfig = require("../config/mdb.config.js");
 const mongoose = require("mongoose");
 const slugify = require("slugify");
 const uniqueValidator = require("mongoose-unique-validator");
+const jwt = require("jsonwebtoken")
 
 mongoose.Promise = global.Promise;
 
@@ -19,6 +20,6 @@ mdb.category = require("./category.model.js")(
 
 mdb.product = require("./product.model.js")(mongoose, slugify, uniqueValidator);
 
-mdb.user = require("./user.model.js")(mongoose, uniqueValidator);
+mdb.user = require("./user.model.js")(mongoose, uniqueValidator, jwt);
 
 module.exports = mdb;

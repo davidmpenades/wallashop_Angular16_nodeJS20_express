@@ -1,8 +1,4 @@
-// const mongoose = require('mongoose');
-// const uniqueValidator = require('mongoose-unique-validator');
-// const jwt = require("jsonwebtoken");
-
-module.exports = (mongoose, uniqueValidator) => {
+module.exports = (mongoose, uniqueValidator, jwt) => {
     const userSchema = mongoose.Schema({
         username: {
             type: String,
@@ -40,40 +36,38 @@ module.exports = (mongoose, uniqueValidator) => {
         {
             timestamps: true
         });
-    
+
     userSchema.plugin(uniqueValidator);
 
     userSchema.method("toJSON", function () {
         const { __v, ...object } = this.toObject();
         return object;
-      });
-    
-    // @desc generate access token for a user
-    // @required valid email and password
-    // userSchema.methods.generateAccessToken = function() {
-    //     const accessToken = jwt.sign({
-    //             "user": {
-    //                 "id": this._id,
-    //                 "email": this.email,
-    //                 "password": this.password
-    //             }
-    //         },
-    //         process.env.ACCESS_TOKEN_SECRET,
-    //         { expiresIn: "1d"}
-    //     );
-    //     return accessToken;
-    // }
-    
-    userSchema.methods.toUserResponse = function() {
+    });
+
+    userSchema.methods.generateAccessToken = function () {
+        const accessToken = jwt.sign({
+            "user": {
+                "id": this._id,
+                "email": this.email,
+                "password": this.password
+            }
+        },
+            process.env.ACCESS_TOKEN_SECRET,
+            { expiresIn: "3600" }
+        );
+        return accessToken;
+    }
+
+    userSchema.methods.toUserResponse = function () {
         return {
             username: this.username,
             email: this.email,
             bio: this.bio,
             image: this.image,
-            // token: this.generateAccessToken()
+            token: this.generateAccessToken()
         }
     };
-    
+
     // userSchema.methods.toProfileJSON = function (user) {
     //     return {
     //         username: this.username,
@@ -82,7 +76,7 @@ module.exports = (mongoose, uniqueValidator) => {
     //         following: user ? user.isFollowing(this._id) : false
     //     }
     // };
-    
+
     // userSchema.methods.isFollowing = function (id) {
     //     const idStr = id.toString();
     //     for (const followingUser of this.followingUsers) {
@@ -92,21 +86,21 @@ module.exports = (mongoose, uniqueValidator) => {
     //     }
     //     return false;
     // };
-    
+
     // userSchema.methods.follow = function (id) {
     //     if(this.followingUsers.indexOf(id) === -1){
     //         this.followingUsers.push(id);
     //     }
     //     return this.save();
     // };
-    
+
     // userSchema.methods.unfollow = function (id) {
     //     if(this.followingUsers.indexOf(id) !== -1){
     //         this.followingUsers.remove(id);
     //     }
     //     return this.save();
     // };
-    
+
     // userSchema.methods.isFavourite = function (id) {
     //     const idStr = id.toString();
     //     for (const article of this.favouriteArticles) {
@@ -116,32 +110,32 @@ module.exports = (mongoose, uniqueValidator) => {
     //     }
     //     return false;
     // }
-    
+
     // userSchema.methods.favorite = function (id) {
     //     if(this.favouriteArticles.indexOf(id) === -1){
     //         this.favouriteArticles.push(id);
     //     }
-    
+
     //     // const article = await Article.findById(id).exec();
     //     //
     //     // article.favouritesCount += 1;
     //     //
     //     // await article.save();
-    
+
     //     return this.save();
     // }
-    
+
     // userSchema.methods.unfavorite = function (id) {
     //     if(this.favouriteArticles.indexOf(id) !== -1){
     //         this.favouriteArticles.remove(id);
     //     }
-    
+
     //     // const article = await Article.findById(id).exec();
     //     //
     //     // article.favouritesCount -= 1;
     //     //
     //     // await article.save();
-    
+
     //     return this.save();
     // };
 
@@ -149,6 +143,3 @@ module.exports = (mongoose, uniqueValidator) => {
     return User
 
 }
-
-
-// module.exports = mongoose.model('User', userSchema);

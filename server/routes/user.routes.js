@@ -1,6 +1,6 @@
 
 const {
-    registerUser
+    registerUser, userLogin
   } = require("../controllers/user.controller");
   
   module.exports = function (app) {
@@ -18,6 +18,12 @@ const {
       [], // middlewares
       registerUser // llamamos a la funcion del controlador
     );
+
+    app.post(
+      "/users/login",
+      [],
+      userLogin
+    )
 
 
   }
