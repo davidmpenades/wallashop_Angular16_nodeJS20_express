@@ -4,11 +4,6 @@ const bcrypt = require('bcrypt');
 
 const User = mdb.user;
 
-// @desc registration for a user
-// @route POST /api/users
-// @access Public
-// @required fields {email, username, password}
-// @return User
 registerUser = asyncHandler(async (req, res) => {
     const { username, password, email, bio, image } = req.body;
     
@@ -63,36 +58,28 @@ registerUser = asyncHandler(async (req, res) => {
 
 // });
 
-// @desc login for a user
-// @route POST /api/users/login
-// @access Public
-// @required fields {email, password}
-// @return User
-// const userLogin = asyncHandler(async (req, res) => {
-//     const { user } = req.body;
+userLogin = asyncHandler(async (req, res) => {
+    const { email, password } = req.body;
 
-//     // confirm data
-//     if (!user || !user.email || !user.password) {
-//         return res.status(400).json({message: "All fields are required"});
-//     }
+    if (!email || !password) {
+        return res.status(400).json({message: "All fields are required"});
+    }
 
-//     const loginUser = await User.findOne({ email: user.email }).exec();
+    const loginUser = await User.findOne({ email }).exec();
 
-//     // console.log(loginUser);
+    if (!loginUser) {
+        return res.status(404).json({message: "User Not Found"});
+    }
 
-//     if (!loginUser) {
-//         return res.status(404).json({message: "User Not Found"});
-//     }
+    const match = await bcrypt.compare(password, loginUser.password);
 
-//     const match = await bcrypt.compare(user.password, loginUser.password);
+    if (!match) return res.status(401).json({ message: 'Unauthorized: Wrong password' })
 
-//     if (!match) return res.status(401).json({ message: 'Unauthorized: Wrong password' })
+    res.status(200).json({
+        user: loginUser.toUserResponse()
+    });
 
-//     res.status(200).json({
-//         user: loginUser.toUserResponse()
-//     });
-
-// });
+});
 
 // // @desc update currently logged-in user
 // // Warning: if password or email is updated, client-side must update the token
@@ -138,6 +125,6 @@ registerUser = asyncHandler(async (req, res) => {
 module.exports = {
     registerUser,
     // getCurrentUser,
-    // userLogin,
+    userLogin,
     // updateUser
 }
