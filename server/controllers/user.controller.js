@@ -25,7 +25,7 @@ registerUser = asyncHandler(async (req, res) => {
 
     if (createdUser) { // user object created successfully
         res.status(201).json({
-            user: createdUser.toUserResponse(false)
+            user: createdUser.toUserResponse(true)
         })
     } else {
         res.status(422).json({

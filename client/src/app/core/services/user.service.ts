@@ -20,17 +20,17 @@ export class UserService {
   populate() {
     // If JWT detected, attempt to get & store user's info
     const token = this.jwtService.getToken();
-    if (token) {      
+    
+    if (token) {   
+         
       this.apiService.get("/user/profile").subscribe(
-        (data) => {
-          console.log(data);
-          
+        (data) => { 
           return this.setAuth({ ...data.user, token });
         },
         (err) => {this.purgeAuth(); console.log(err);
         }
       );
-    } else {
+    } else {      
       // Remove any potential remnants of previous auth states
       this.purgeAuth();
     }
@@ -40,19 +40,21 @@ export class UserService {
   // Set current user data into observable
   // cambia isAuthenticated a true
   setAuth(data: any) {
+    
     this.jwtService.saveToken(data.token);
     this.currentUserSubject.next(data);
     this.isAuthenticatedSubject.next(true);
   }
+
   // Método para purgar la autenticación (cerrar sesión)
     // Destruye el token almacenado en el almacenamiento local
     // Establece el sujeto del usuario actual como un objeto de usuario vacío
     // Establece el sujeto de autenticación como falso
-purgeAuth() {
-  this.jwtService.destroyToken();
-  this.currentUserSubject.next({} as User);
-  this.isAuthenticatedSubject.next(false);
-}
+  purgeAuth() {
+    this.jwtService.destroyToken();
+    this.currentUserSubject.next({} as User);
+    this.isAuthenticatedSubject.next(false);
+  }
 
   // Método para intentar autenticar o registrar a un usuario
     // Utiliza el servicio ApiService para hacer una solicitud POST a la ruta '/users' con las credenciales
@@ -63,8 +65,6 @@ purgeAuth() {
   attempAuth(credentials: Register): Observable<any> {
     return this.apiService.post('/users', credentials).pipe(
       map((data) => {
-        console.log(data);
-        
         this.setAuth(data.user);
         return data;
       })

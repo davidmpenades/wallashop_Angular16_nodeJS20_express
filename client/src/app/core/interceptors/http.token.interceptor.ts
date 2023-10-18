@@ -12,15 +12,16 @@ export class HttpTokenInterceptor implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {    
     const headersConfig = {// Configuración inicial de encabezados
       'Content-Type': 'application/json',
-      'Accept': 'application/json'
+      'Accept': 'application/json',
+      'Authorization':''
     };
 
     // Obtener el token del servicio JwtService
     const token = this.jwtService.getToken();
 
     // Si hay un token, agregar el encabezado de autorización a la configuración de encabezados
-    if (token) {
-    //   headersConfig['Authorization'] = `Token ${token}`;
+    if (token) {      
+      headersConfig['Authorization']= `Token ${token}`;
     }
 
     // Clonar la solicitud original y establecer los encabezados configurados

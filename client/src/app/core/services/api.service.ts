@@ -21,9 +21,7 @@ export class ApiService {
   }
 
   // Método para realizar una solicitud GET
-  get(path: string, params: HttpParams = new HttpParams()): Observable<any> {
-    console.log(params);
-    
+  get(path: string, params: HttpParams = new HttpParams()): Observable<any> {    
     return this.http.get(`${environment.api_url}${path}`, { params });
   }
 

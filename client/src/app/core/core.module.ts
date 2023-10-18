@@ -8,10 +8,10 @@ import { HttpTokenInterceptor } from './interceptors';
 @NgModule({
   declarations: [],
   imports: [
-    CommonModule
+    CommonModule    
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: HttpTokenInterceptor}
+    { provide: HTTP_INTERCEPTORS, useClass: HttpTokenInterceptor, multi: true }
   ]
 })
 export class CoreModule { }

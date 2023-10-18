@@ -12,6 +12,7 @@ import { DetailProductModule } from './detail-product/detail-product.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ToastNoAnimationModule } from 'ngx-toastr';
 import { AuthModule } from './auth/auth.module';
+import { CoreModule } from './core';
 
 @NgModule({
   declarations: [AppComponent, HeaderComponent, FooterComponent],
@@ -27,7 +28,8 @@ import { AuthModule } from './auth/auth.module';
     ReactiveFormsModule,
     FormsModule,
     ToastNoAnimationModule.forRoot(),
-    AuthModule
+    AuthModule,
+    CoreModule
   ],
   providers: [],
   bootstrap: [AppComponent],

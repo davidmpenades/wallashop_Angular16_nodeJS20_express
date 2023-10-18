@@ -18,8 +18,6 @@ export class HeaderComponent {
   // Se suscribe a cambios en el usuario actual a través del servicio UserService      
   ngOnInit() {
     this.userService.currentUser.subscribe((userData) => {
-      console.log(userData);
-      
       this.currentUser = userData;// Actualiza la propiedad currentUser con los datos del usuario actual
     });
   }
