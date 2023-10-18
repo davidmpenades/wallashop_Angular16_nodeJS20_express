@@ -1,7 +1,8 @@
 
 const {
-    registerUser, userLogin
+    registerUser, userLogin, getCurrentUser, updateUser
   } = require("../controllers/user.controller");
+const verifyJWT = require("../middleware/verifyJWT");
   
   module.exports = function (app) {
     app.use(function (req, res, next) {
@@ -24,24 +25,22 @@ const {
       [],
       userLogin
     )
+    
+    app.get(
+      "/user/profile",
+      [
+        verifyJWT
+      ],
+      getCurrentUser
+    )
+
+    app.put(
+      "/user/update",
+      [
+        verifyJWT
+      ],
+      updateUser
+    )
 
 
   }
-// const express = require('express');
-// const router = express.Router();
-// const userController = require('../controllers/user.controller');
-// const verifyJWT = require('../middleware/verifyJWT');
-
-// Authentication
-// router.post('/users/login', userController.userLogin);
-
-// Registration
-// router.post('/users', userController.registerUser);
-
-// Get Current User
-// router.get('/user', verifyJWT, userController.getCurrentUser);
-
-// Update User
-// router.put('/user', verifyJWT, userController.updateUser);
-
-// module.exports = router;
