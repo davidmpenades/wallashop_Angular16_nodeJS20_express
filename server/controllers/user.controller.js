@@ -25,7 +25,7 @@ registerUser = asyncHandler(async (req, res) => {
 
     if (createdUser) { // user object created successfully
         res.status(201).json({
-            user: createdUser.toUserResponse()
+            user: createdUser.toUserResponse(false)
         })
     } else {
         res.status(422).json({
@@ -36,37 +36,33 @@ registerUser = asyncHandler(async (req, res) => {
     }
 });
 
-// @desc get currently logged-in user
-// @route GET /api/user
-// @access Private
-// @return User
-// const getCurrentUser = asyncHandler(async (req, res) => {
+getCurrentUser = asyncHandler(async (req, res) => {
     // After authentication; email and hashsed password was stored in req
-//     const email = req.userEmail;
+    const email = req.userEmail;
 
-//     const user = await User.findOne({ email }).exec();
+    const user = await User.findOne({ email }).exec();
 
-//     if (!user) {
-//         return res.status(404).json({message: "User Not Found"});
-//     }
+    if (!user) {
+        return res.status(404).json({ message: "User Not Found" });
+    }
 
-//     res.status(200).json({
-//         user: user.toUserResponse()
-//     })
+    res.status(200).json({
+        user: user.toUserResponse(false)
+    })
 
-// });
+});
 
 userLogin = asyncHandler(async (req, res) => {
     const { email, password } = req.body;
 
     if (!email || !password) {
-        return res.status(400).json({message: "All fields are required"});
+        return res.status(400).json({ message: "All fields are required" });
     }
 
     const loginUser = await User.findOne({ email }).exec();
 
     if (!loginUser) {
-        return res.status(404).json({message: "User Not Found"});
+        return res.status(404).json({ message: "User Not Found" });
     }
 
     const match = await bcrypt.compare(password, loginUser.password);
@@ -74,55 +70,63 @@ userLogin = asyncHandler(async (req, res) => {
     if (!match) return res.status(401).json({ message: 'Unauthorized: Wrong password' })
 
     res.status(200).json({
-        user: loginUser.toUserResponse()
+        user: loginUser.toUserResponse(true)
     });
 
 });
 
-// // @desc update currently logged-in user
-// // Warning: if password or email is updated, client-side must update the token
-// // @route PUT /api/user
-// // @access Private
-// // @return User
-// const updateUser = asyncHandler(async (req, res) => {
-//     const { user } = req.body;
+updateUser = asyncHandler(async (req, res) => {
+    const { user } = req.body;
 
-//     // confirm data
-//     if (!user) {
-//         return res.status(400).json({message: "Required a User object"});
-//     }
+    // confirm data
+    if (!user) {
+        return res.status(400).json({ message: "Required a User object" });
+    }
 
-//     const email = req.userEmail;
+    const email = req.userEmail;
 
-//     const target = await User.findOne({ email }).exec();
+    const target = await User.findOne({ email }).exec();
 
-//     if (user.email) {
-//         target.email = user.email;
-//     }
-//     if (user.username) {
-//         target.username = user.username;
-//     }
-//     if (user.password) {
-//         const hashedPwd = await bcrypt.hash(user.password, 10);
-//         target.password = hashedPwd;
-//     }
-//     if (typeof user.image !== 'undefined') {
-//         target.image = user.image;
-//     }
-//     if (typeof user.bio !== 'undefined') {
-//         target.bio = user.bio;
-//     }
-//     await target.save();
+    if (user.email) {
+        emailExists = await User.findOne({ email: user.email }).exec()
+        if (emailExists && user.email != email) {
+            return res.status(401).json({
+                message: "El email ya existe!"
+            });
+        }
+        target.email = user.email;
 
-//     return res.status(200).json({
-//         user: target.toUserResponse()
-//     });
+    }
+    if (user.username) {
+        target.username = user.username;
+    }
+    if (user.password && user.oldPassword) {
+        const isValid = await bcrypt.compare(user.oldPassword, target.password);
+        if (!isValid) {
+            return res.status(401).json({
+                message: "No es la antigua contraseña!"
+            });
+        }
+        const hashedPwd = await bcrypt.hash(user.password, 10);
+        target.password = hashedPwd;
+    }
+    if (typeof user.image !== 'undefined') {
+        target.image = user.image;
+    }
+    if (typeof user.bio !== 'undefined') {
+        target.bio = user.bio;
+    }
+    await target.save();
 
-// });
+    return res.status(200).json({
+        user: target.toUserResponse(true)
+    });
+
+});
 
 module.exports = {
     registerUser,
-    // getCurrentUser,
+    getCurrentUser,
     userLogin,
-    // updateUser
+    updateUser
 }

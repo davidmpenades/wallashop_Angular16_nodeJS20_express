@@ -53,18 +53,27 @@ module.exports = (mongoose, uniqueValidator, jwt) => {
             }
         },
             process.env.ACCESS_TOKEN_SECRET,
-            { expiresIn: "3600" }
+            { expiresIn: "1d" }
         );
         return accessToken;
     }
 
-    userSchema.methods.toUserResponse = function () {
-        return {
-            username: this.username,
-            email: this.email,
-            bio: this.bio,
-            image: this.image,
-            token: this.generateAccessToken()
+    userSchema.methods.toUserResponse = function (log) {
+        if (log) {
+            return {
+                username: this.username,
+                email: this.email,
+                bio: this.bio,
+                image: this.image,
+                token: this.generateAccessToken()
+            }
+        } else {
+            return {
+                username: this.username,
+                email: this.email,
+                bio: this.bio,
+                image: this.image,
+            }
         }
     };
 
