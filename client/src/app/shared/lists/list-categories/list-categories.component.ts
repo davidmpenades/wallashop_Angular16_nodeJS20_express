@@ -18,6 +18,10 @@ export class ListCategoriesComponent implements OnInit {
     this.getCategories()
   }
 
+  // Método para obtener las categorías
+    // Llama al método 'get' del servicio 'categoryService' para obtener las categorías
+      // Callback 'next' que se ejecuta cuando la solicitud es exitosa
+        // Asigna los datos de las categorías al arreglo 'categories' de la clase
   getCategories() {
     this.categoryService.get({}).subscribe({
       next: (data) => {

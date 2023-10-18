@@ -5,10 +5,10 @@ const bcrypt = require('bcrypt');
 const User = mdb.user;
 
 registerUser = asyncHandler(async (req, res) => {
-    const { username, password, email, bio, image } = req.body;
+    const { username, password, email } = req.body;
     
     // confirm data
-    if (!username || !email || !bio || !password) {
+    if (!username || !email || !password) {
         return res.status(400).json({message: "All fields are required"});
     }
 
@@ -19,8 +19,6 @@ registerUser = asyncHandler(async (req, res) => {
         username,
         "password": hashedPwd,
         email,
-        bio,
-        image
     };
 
     const createdUser = await User.create(userObject);
@@ -43,7 +41,7 @@ registerUser = asyncHandler(async (req, res) => {
 // @access Private
 // @return User
 // const getCurrentUser = asyncHandler(async (req, res) => {
-//     After authentication; email and hashsed password was stored in req
+    // After authentication; email and hashsed password was stored in req
 //     const email = req.userEmail;
 
 //     const user = await User.findOne({ email }).exec();

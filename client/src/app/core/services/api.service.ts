@@ -7,25 +7,37 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root',
 })
 export class ApiService {
+  // Constructor que recibe una instancia de HttpClient
   constructor(private http: HttpClient) {}
 
+  // Método para realizar una solicitud POST
   set(path: string, data: {}): Observable<any> {
     return this.http.post(`${environment.api_url}${path}`, data);
   }
 
-  get(path: string, params: HttpParams = new HttpParams()): Observable<any> {
-    
-    return this.http.get(`${environment.api_url}${path}`,{params});
+  // Método para realizar una solicitud POST 
+  post(path:string, data:{}): Observable<any>{
+    return this.http.post(`${environment.api_url}${path}`, data);
   }
 
+  // Método para realizar una solicitud GET
+  get(path: string, params: HttpParams = new HttpParams()): Observable<any> {
+    console.log(params);
+    
+    return this.http.get(`${environment.api_url}${path}`, { params });
+  }
+
+  // Método para realizar una solicitud POST con un slug
   getBySlug(path: string, slug: string): Observable<any> {
     return this.http.post(`${environment.api_url}${path}`, { slug });
   }
 
+  // Método para realizar una solicitud DELETE
   delete(path: string, slug: string): Observable<any> {
+    // Configuración de opciones para la solicitud DELETE
     const options = {
       headers: new HttpHeaders({
-        'Content-Type': 'application/json', //  ajusta los encabezados según tus necesidades
+        'Content-Type': 'application/json', // Ajusta los encabezados según tus necesidades
       }),
       body: { slug }, // Cuerpo de la solicitud DELETE si es necesario
     };
@@ -33,6 +45,7 @@ export class ApiService {
     return this.http.delete(`${environment.api_url}${path}`, options);
   }
 
+  // Método para realizar una solicitud PUT
   update(path: string, data: {}): Observable<any> {
     return this.http.put(`${environment.api_url}${path}`, data);
   }

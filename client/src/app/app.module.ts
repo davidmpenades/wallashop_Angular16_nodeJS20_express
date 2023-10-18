@@ -3,13 +3,15 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ReactiveFormsModule } from '@angular/forms';
 import { HomeRoutingModule } from './home/home-routing.module';
 import { FooterComponent, HeaderComponent, SharedModule } from './shared';
 import { NgxBootstrapIconsModule, allIcons } from 'ngx-bootstrap-icons';
 import { ShopRoutingModule } from './shop/shop-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { DetailProductModule } from './detail-product/detail-product.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ToastNoAnimationModule } from 'ngx-toastr';
+import { AuthModule } from './auth/auth.module';
 
 @NgModule({
   declarations: [AppComponent, HeaderComponent, FooterComponent],
@@ -19,10 +21,13 @@ import { DetailProductModule } from './detail-product/detail-product.module';
     HomeRoutingModule,
     ShopRoutingModule,
     DetailProductModule,
-    ReactiveFormsModule,
     SharedModule,
     NgxBootstrapIconsModule.pick(allIcons),
-    HttpClientModule,    
+    HttpClientModule,  
+    ReactiveFormsModule,
+    FormsModule,
+    ToastNoAnimationModule.forRoot(),
+    AuthModule
   ],
   providers: [],
   bootstrap: [AppComponent],

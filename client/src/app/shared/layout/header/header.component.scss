@@ -1,6 +1,10 @@
 
 img{
     width: 200px;
+    &.logged{
+      width: 50px;
+      border-radius: 50%;
+    }
 }
 .cont-logo{
     .logo2{

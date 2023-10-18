@@ -20,7 +20,13 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link active" [routerLink]="['/']" aria-current="page" href="#">Home</a>
+          <a
+            class="nav-link active"
+            [routerLink]="['/']"
+            aria-current="page"
+            href="#"
+            >Home</a
+          >
         </li>
         <li class="nav-item">
           <a class="nav-link" [routerLink]="['/shop/']" href="#">Shop</a>
@@ -49,9 +55,35 @@
           <a class="nav-link">Link</a>
         </li>
       </ul>
-      <button class="btn btn-outline-success fw-bold" type="submit">
-        Login
-      </button>
+      
+        <button *appShowAuthed="false" class="btn btn-outline-success fw-bold"
+          type="submit"
+          [routerLink]="['/auth']">Login</button>
+          <ul *appShowAuthed="true" class="navbar-nav mx-auto mb-2 mb-lg-0">
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"                
+                id="navbarDropdown"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+              <img src="{{currentUser?.image}}" class="logged" alt="" srcset="">  
+              
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li><a class="dropdown-item">profile</a></li>
+                <li><a class="dropdown-item">setting</a></li>
+                <li>
+                  <hr class="dropdown-divider" />
+                </li>
+                <li (click)="logout()"><a class="dropdown-item">logout</a></li>
+              </ul>
+            </li>
+          </ul>
+          
+     
+      
     </div>
   </div>
 </nav>
