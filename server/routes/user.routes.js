@@ -42,5 +42,4 @@ const verifyJWT = require("../middleware/verifyJWT");
       updateUser
     )
 
-
   }

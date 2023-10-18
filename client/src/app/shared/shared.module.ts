@@ -10,18 +10,19 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { FilterComponent } from './filter/filter.component';
 import { SearchComponent } from './search/search.component';
 import { FormsModule } from '@angular/forms';
+import { ShowAuthedDirective } from './show-authed.directive';
 
 
 @NgModule({
-  declarations: [
+  declarations: [	
     ListProductsComponent,
     CardProductComponent,
     CarrouselComponent,
     CardCarrouselComponent,
     FilterComponent,
     SearchComponent,
-    
-  ],
+      ShowAuthedDirective
+   ],
   imports: [
     CommonModule,
     RouterModule,
@@ -38,7 +39,8 @@ import { FormsModule } from '@angular/forms';
     FilterComponent,
     SearchComponent,
     CommonModule,
-    FormsModule
+    FormsModule,
+    ShowAuthedDirective
   ],
 })
 export class SharedModule { }

@@ -28,7 +28,7 @@ export class ListProductsComponent implements OnInit {
   codeUrl: string = '';
   categ = this.route.snapshot.paramMap.get('slug');
   currentPage: number = 1;
-  titleCategory: String = ''
+  titleCategory: String = '';
 
   @Input() scrollOn: boolean = false;
   @Input() filtersOn: boolean = false;
@@ -40,6 +40,10 @@ export class ListProductsComponent implements OnInit {
     private router: Router
   ) {}
 
+  // Implementación del método ngOnInit del componente
+    // Al inicializar el componente, se obtienen las categorías y se suscribe a cambios en los parámetros de la ruta
+      // Se obtiene y decodifica el parámetro 'fil' de la URL
+      // Se llama al método controller con los filtros obtenidos de la URL o los filtros por defecto
   ngOnInit(): void {
     this.getCategories();
 
@@ -54,6 +58,9 @@ export class ListProductsComponent implements OnInit {
     });
   }
 
+  // Método controller que gestiona la lógica principal
+    // Si hay una categoría seleccionada, se obtienen los productos por categoría
+      // Si se han aplicado nuevos filtros, se reinician algunos valores y se obtienen nuevos productos
   controller(filters2: Filters) {
     if (this.categ) {
       this.getProductsByCategory(this.categ);
@@ -63,6 +70,8 @@ export class ListProductsComponent implements OnInit {
         this.filters.offset = 0;
         this.currentPage = 1;
       }
+
+      // Se actualizan los filtros con los valores obtenidos
       if (filters2.text != '') {
         this.filters.text = filters2.text;
         if (filters2.category != '') {
@@ -79,10 +88,13 @@ export class ListProductsComponent implements OnInit {
         this.filters.price_min = filters2.price_min;
         this.filters.category = filters2.category;
       }
+
+      // Se obtienen los productos con los filtros actuales
       this.getProducts();
     }
   }
 
+  // Método para obtener productos por categoría
   getProductsByCategory(cat: string) {
     this.productService.getBySlugCategory(cat).subscribe({
       next: (data) => {
@@ -91,14 +103,22 @@ export class ListProductsComponent implements OnInit {
     });
   }
 
+  // Método asincrónico para obtener productos con los filtros actuales
+    // Se obtienen los parámetros de la solicitud
+      // Se realiza la solicitud para obtener productos
+
+
   async getProducts() {
     const params2 = await this.getRequestParams();
 
     this.productService.get(params2).subscribe({
       next: (data) => {
+        // Se concatenan los nuevos productos a la lista existente
         this.products = this.products.concat(data.products);
         this.filters.limit = 6;
         this.filters.offset = this.filters.offset + 6;
+
+        // Se actualizan las páginas en función del total de productos
         this.pages = Array.from(
           new Array(Math.ceil(data.total_products / 6)),
           (val, index) => index + 1
@@ -107,6 +127,7 @@ export class ListProductsComponent implements OnInit {
     });
   }
 
+  // Método para establecer la página actual y obtener productos
   setPage(pageNumber: any) {
     this.currentPage = pageNumber;
     this.filters.offset = this.currentPage * 6 - 6;
@@ -114,6 +135,7 @@ export class ListProductsComponent implements OnInit {
     this.getProducts();
   }
 
+  // Método asincrónico para obtener parámetros de solicitud
   async getRequestParams() {
     const params = new HttpParams()
       .set('limit', this.filters.limit.toString())
@@ -126,6 +148,7 @@ export class ListProductsComponent implements OnInit {
     return params;
   }
 
+  // Método para obtener categorías
   getCategories() {
     this.categoryService.get({}).subscribe({
       next: (data) => {
@@ -134,9 +157,12 @@ export class ListProductsComponent implements OnInit {
     });
   }
 
-  setTitle(title: String){
-    this.titleCategory = title
+  // Método para establecer el título de la categoría
+  setTitle(title: string) {
+    this.titleCategory = title;
   }
+
+  // Método para realizar un scroll solo si esta activado y actualizar la vista con los filtros actuales
   scroll() {
     if (this.scrollOn == true) {
       this.controller(this.filters);

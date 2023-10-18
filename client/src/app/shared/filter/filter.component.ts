@@ -23,9 +23,13 @@ export class FilterComponent {
   constructor(private router: Router,
     private route: ActivatedRoute,
     ) {}
-  @Input() categories!: Category[];
-  @Output() newtitleCategory = new EventEmitter<String>();
 
+  // Decoradores @Input y @Output para recibir y emitir datos hacia/desde el componente padre
+  @Input() categories!: Category[];
+  @Output() newtitleCategory = new EventEmitter<any>();
+
+  // Suscribe a cambios en los parámetros de la ruta para actualizar los filtros
+    // Obtiene el código de la URL y actualiza los valores de los filtros
   ngOnInit(): void {
     this.route.params.subscribe((params: Params) => {
       this.codeUrl = params['fil'] == undefined ? '' : params['fil'];
@@ -39,12 +43,16 @@ export class FilterComponent {
     });
   }
 
+  // Método para establecer los filtros y navegar a la página de resultados
+    // Navega a la página de resultados con los filtros codificados en la URL
+      // Actualiza el título de la categoría y emite el evento al componente padre
   setFilters() {
     this.router.navigate(['/filters',btoa(JSON.stringify(this.filters2))]);
     this.titleCategory = this.categories.filter(categ => categ.slug == this.filters2.category)[0].title
     this.newtitleCategory.emit(this.titleCategory)
 
   }
+  // Método para eliminar los filtros y navegar a la página principal de tienda
   deleteFilters(){
     this.router.navigate(['/shop']);
   }

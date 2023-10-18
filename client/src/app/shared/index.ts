@@ -9,3 +9,6 @@ export * from './lists'
 
 // Shared Module
 export * from './shared.module';
+
+// Directives
+export * from './show-authed.directive'
