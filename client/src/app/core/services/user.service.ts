@@ -20,9 +20,9 @@ export class UserService {
   populate() {
     // If JWT detected, attempt to get & store user's info
     const token = this.jwtService.getToken();
-    
-    if (token) {   
-         
+
+    if (token) {
+
       this.apiService.get("/user/profile").subscribe(
         (data) => {           
           return this.setAuth({ ...data.user, token });
@@ -30,7 +30,7 @@ export class UserService {
         (err) => {this.purgeAuth(); console.log(err);
         }
       );
-    } else {      
+    } else {
       // Remove any potential remnants of previous auth states
       this.purgeAuth();
     }
@@ -65,8 +65,9 @@ export class UserService {
     // Utiliza el operador 'map' para transformar la respuesta de la solicitud
       // Llama al método 'setAuth' para establecer la autenticación con los datos del usuario
       // Devuelve los datos completos de la respuesta (incluyendo el usuario)
-  attempAuth(credentials: Register): Observable<any> {
-    return this.apiService.post('/users', credentials).pipe(
+  attempAuth(type: string, credentials: Register): Observable<any> {
+    const route = (type === 'login') ? '/users/login' : '/users';
+    return this.apiService.post(route , credentials).pipe(
       map((data) => {
         this.setAuth(data.user);
         return data;
