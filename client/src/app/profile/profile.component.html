@@ -1,0 +1,85 @@
+<div class="container">
+  <div class="profile-env">
+    <header class="row">
+      <div class="col-sm-2">
+        <a href="#" class="profile-picture">
+          <img
+            src="{{user.image}}"
+            class="img-responsive img-circle"
+          />
+        </a>
+      </div>
+      <div class="col-sm-7">
+        <ul class="profile-info-sections">
+          <li>
+            <div class="profile-name">
+              <strong>
+                <a href="#">{{user.username}}</a>
+                <a
+                  href="#"
+                  class="user-status is-online tooltip-primary"
+                  data-toggle="tooltip"
+                  data-placement="top"
+                  data-original-title="Online"
+                ></a>
+              </strong>
+              <span>
+                <a href="#">{{user.bio}}</a>
+              </span>
+            </div>
+          </li>
+          <li>
+            <div class="profile-stat">
+              <h3>643</h3>
+              <span>
+                <a href="#">followers</a>
+              </span>
+            </div>
+          </li>
+          <li>
+            <div class="profile-stat">
+              <h3>108</h3>
+              <span>
+                <a href="#">following</a>
+              </span>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="col-sm-3">
+        <div class="profile-buttons">
+          <a href="#" class="btn btn-success"> Follow </a>
+        </div>
+      </div>
+    </header>
+    <section class="profile-info-tabs">
+      <div class="row">
+        <div class="col-sm-offset-2 col-sm-10">
+          <ul class="user-details">
+            <li>
+              <a href="#">
+                <i class="entypo-location"></i>
+                {{user.email}}
+              </a>
+            </li>
+            
+          </ul>
+          <!-- tabs for the profile links -->
+          <ul class="nav nav-tabs">
+            <li class="active">
+              <a href="#profile-info">Profile</a>
+            </li>
+            <li>
+              <a href="#biography">Follows</a>
+            </li>
+            <li>
+              <a [routerLink]="['/profile/editProfile/']">Edit Profile</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+    <router-outlet></router-outlet>
+    <section class="profile-feed"></section>
+  </div>
+</div>
