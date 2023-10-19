@@ -71,13 +71,13 @@
               <img src="{{currentUser?.image}}" class="logged" alt="" srcset="">  
               
               </a>
-              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <li><a class="dropdown-item" href=""><i i-bs name="person-circle"></i> profile</a></li>
-                <li><a class="dropdown-item" href=""><i i-bs name="gear-fill"></i> setting</a></li>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown1">
+                <li [routerLink]="['/profile/']"><a class="dropdown-item"><i i-bs name="person-circle"></i> profile</a></li>
+                <li [routerLink]="['/profile/editProfile']"><a class="dropdown-item"><i i-bs name="gear-fill"></i> Edit profile</a></li>
                 <li>
                   <hr class="dropdown-divider" />
                 </li>
-                <li (click)="logout()"><a class="dropdown-item" href=""><i i-bs name="box-arrow-right"></i> logout</a></li>
+                <li (click)="logout()"><a class="dropdown-item"><i i-bs name="box-arrow-right"></i> logout</a></li>
               </ul>
             </li>
           </ul>

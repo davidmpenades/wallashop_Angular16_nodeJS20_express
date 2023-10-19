@@ -1,7 +1,7 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { JwtService, UserService } from '../core';
+import { Component} from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
+import { UserService } from '../core';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
@@ -19,7 +19,6 @@ export class AuthComponent {
     private router: Router,
     private userService: UserService,
     private formbuilder: FormBuilder,
-    private jwt: JwtService,
     private toastr: ToastrService
   ) {
     this.registerForm = this.formbuilder.group({
