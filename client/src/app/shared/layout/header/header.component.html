@@ -2,9 +2,9 @@
   <div class="container-fluid">
     <!-- <a class="navbar-brand fw-bold" href="#">Coding Yaar</a> -->
     <div class="cont-logo" [routerLink]="['/']">
-      <img src="/assets/imgs/logo2.png" alt="LOGO" srcset="" class="logo2" />
+      <img src="/assets/imgs/logo2.png" alt="LOGO" srcset class="logo2" />
 
-      <img src="/assets/imgs/logo1.png" alt="LOGO" srcset="" class="logo1" />
+      <img src="/assets/imgs/logo1.png" alt="LOGO" srcset class="logo1" />
     </div>
     <button
       class="navbar-toggler"
@@ -13,8 +13,7 @@
       data-bs-target="#navbarSupportedContent"
       aria-controls="navbarSupportedContent"
       aria-expanded="false"
-      aria-label="Toggle navigation"
-    >
+      aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -24,9 +23,7 @@
             class="nav-link active"
             [routerLink]="['/']"
             aria-current="page"
-            href="#"
-            >Home</a
-          >
+            href="#">Home</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" [routerLink]="['/shop/']" href="#">Shop</a>
@@ -38,8 +35,7 @@
             id="navbarDropdown"
             role="button"
             data-bs-toggle="dropdown"
-            aria-expanded="false"
-          >
+            aria-expanded="false">
             Dropdown
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -55,35 +51,36 @@
           <a class="nav-link">Link</a>
         </li>
       </ul>
-      
-        <button *appShowAuthed="false" class="btn btn-outline-success fw-bold"
-          type="submit"
-          [routerLink]="['/auth']">Login</button>
-          <ul *appShowAuthed="true" class="navbar-nav mx-auto mb-2 mb-lg-0">
-            <li class="nav-item dropdown">
-              <a
-                class="nav-link dropdown-toggle"                
-                id="navbarDropdown"
-                role="button"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-              <img src="{{currentUser?.image}}" class="logged" alt="" srcset="">  
-              
-              </a>
-              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <li><a class="dropdown-item" href=""><i i-bs name="person-circle"></i> profile</a></li>
-                <li><a class="dropdown-item" href=""><i i-bs name="gear-fill"></i> setting</a></li>
-                <li>
-                  <hr class="dropdown-divider" />
-                </li>
-                <li (click)="logout()"><a class="dropdown-item" href=""><i i-bs name="box-arrow-right"></i> logout</a></li>
-              </ul>
+
+      <button *appShowAuthed="false" class="btn btn-outline-success fw-bold"
+        type="submit"
+        [routerLink]="['/auth']">Login</button>
+      <ul *appShowAuthed="true" class="navbar-nav ms-auto mb-2 mb-lg-0">
+        <li class="nav-item dropdown">
+          <a
+            class="nav-link dropdown-toggle"
+            id="navbarDropdown"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false">
+            <img src="{{currentUser?.image}}" class="logged" alt srcset>
+            {{currentUser?.username}}
+
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href><i i-bs name="person-circle"></i>
+                profile</a></li>
+            <li><a class="dropdown-item" href><i i-bs name="gear-fill"></i>
+                setting</a></li>
+            <li>
+              <hr class="dropdown-divider" />
             </li>
+            <li (click)="logout()"><a class="dropdown-item" href><i i-bs
+                  name="box-arrow-right"></i> logout</a></li>
           </ul>
-          
-     
-      
+        </li>
+      </ul>
+
     </div>
   </div>
 </nav>
