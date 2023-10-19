@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
+import { Component} from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { JwtService, UserService } from '../core';
+import { UserService } from '../core';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({

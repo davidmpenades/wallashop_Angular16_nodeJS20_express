@@ -24,7 +24,7 @@ export class UserService {
     if (token) {
 
       this.apiService.get("/user/profile").subscribe(
-        (data) => {
+        (data) => {           
           return this.setAuth({ ...data.user, token });
         },
         (err) => {this.purgeAuth(); console.log(err);
@@ -36,11 +36,14 @@ export class UserService {
     }
   }
 
+  getCurrentUser(): User {
+    return this.currentUserSubject.value;
+  }
+  
   // guarda jwt que viene desde el server en localstorage
   // Set current user data into observable
   // cambia isAuthenticated a true
   setAuth(data: any) {
-
     this.jwtService.saveToken(data.token);
     this.currentUserSubject.next(data);
     this.isAuthenticatedSubject.next(true);
@@ -70,5 +73,15 @@ export class UserService {
         return data;
       })
     );
+  }
+
+  update(user:any): Observable<User> {
+    return this.apiService
+    .put('/user/update', { user })
+    .pipe(map(data => {
+      // Update the currentUser observable
+      this.currentUserSubject.next(data.user);
+      return data.user;
+    }));
   }
 }

@@ -11,7 +11,7 @@ import { HttpTokenInterceptor } from './interceptors';
     CommonModule    
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: HttpTokenInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: HttpTokenInterceptor, multi: true },
   ]
 })
 export class CoreModule { }

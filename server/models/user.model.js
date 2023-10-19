@@ -53,7 +53,7 @@ module.exports = (mongoose, uniqueValidator, jwt) => {
             }
         },
             process.env.ACCESS_TOKEN_SECRET,
-            { expiresIn: "1d" }
+            { expiresIn: "3600s" }
         );
         return accessToken;
     }

@@ -13,6 +13,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ToastNoAnimationModule } from 'ngx-toastr';
 import { AuthModule } from './auth/auth.module';
 import { CoreModule } from './core';
+import { ProfileModule } from './profile/profile.module';
 
 @NgModule({
   declarations: [AppComponent, HeaderComponent, FooterComponent],
@@ -29,7 +30,8 @@ import { CoreModule } from './core';
     FormsModule,
     ToastNoAnimationModule.forRoot(),
     AuthModule,
-    CoreModule
+    CoreModule,
+    ProfileModule
   ],
   providers: [],
   bootstrap: [AppComponent],
