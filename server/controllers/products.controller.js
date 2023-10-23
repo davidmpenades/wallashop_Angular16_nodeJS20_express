@@ -10,6 +10,7 @@ const Category = mdb.category;
 // creamos la funcion de crear product
 createProduct = asyncHandler(async (req, res) => {
   const { title, description, price, imgs, category } = req.body;
+  const owner = req.userId
 
   // confirmar que recibe todos los datos
   if (!title || !description || !price || !category || !imgs) {
@@ -31,6 +32,7 @@ createProduct = asyncHandler(async (req, res) => {
     price,
     imgs,
     category: foundCategory.slug,
+    owner
   });
 
   await foundCategory.addProduct(product._id);
@@ -55,8 +57,8 @@ readProducts = asyncHandler(async (req, res) => {
     ]
   }
 
-  if (parseInt (price_min) < parseInt(price_max)) {
-    query.$and.push({price:{$lte:price_max}})
+  if (parseInt(price_min) < parseInt(price_max)) {
+    query.$and.push({ price: { $lte: price_max } })
   }
 
   if (text) {
@@ -74,7 +76,7 @@ readProducts = asyncHandler(async (req, res) => {
     ]
   }
 
-  if(category){
+  if (category) {
     query.category = category
   }
   const readProducts = await Product.find(query).limit(limit).skip(offset).exec();
@@ -88,7 +90,7 @@ readProducts = asyncHandler(async (req, res) => {
   return res.status(200).json({
     products: await Promise.all(
       readProducts.map(async (product) => {
-        return await product.toProductResponse();
+        return await product.toProductResponse(req.loggedin ? req.userId : false);
       })
     ),
     total_products: readProductsCount
@@ -103,7 +105,7 @@ readProductWithSlug = asyncHandler(async (req, res) => {
       message: "Product not found!",
     });
   }
-  return res.status(200).json(await product.toProductResponse());
+  return res.status(200).json(await product.toProductResponse(req.loggedin ? req.userId : false));
 });
 
 // 
@@ -120,7 +122,7 @@ readProductsWithCategory = asyncHandler(async (req, res) => {
     await Promise.all(
       category.products.map(async (productSlug) => {
         const productObj = await Product.findById(productSlug).exec();
-        const res = await productObj.toProductResponse();
+        const res = await productObj.toProductResponse(req.loggedin ? req.userId : false);
         return res;
       })
     )
@@ -146,11 +148,42 @@ deleteProduct = asyncHandler(async (req, res) => {
   });
 });
 
+likeOrUnLikeProduct = asyncHandler(async (req, res) => {
+  const { slug } = req.body;
+  const userId = req.userId;
+  try {
+    // Find the product by its slug
+    const product = await Product.findOne({ slug }).exec();
+    if (!product) {
+      return res.status(401).json({
+        message: "Product not found!",
+      });
+    }
+
+    await product.likes.includes(userId) // Verifica si el userId esta dentro de product.likes
+      ? await product.unlike(userId) // Si el array de likes contiene el userId
+      : await product.like(userId); // Si no esta lo contiene
+
+    // Return updated response with status code and data
+    return res.status(200).send({
+      success: true,
+      message: `You ${product.likes.includes(userId) ? '' : 'un'}liked this product`
+    });
+  } catch (error) {
+    console.log('Error al intentar dar like o dislike', error);
+    return res.status(500).send({
+      success: false,
+      message: 'Ocurrio un error al intentar dar like o dislike',
+    });
+  };
+});
+
 const productController = {
   createProduct,
   readProducts,
   deleteProduct,
   readProductsWithCategory,
   readProductWithSlug,
+  likeOrUnLikeProduct
 };
 module.exports = productController;
