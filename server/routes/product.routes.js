@@ -1,3 +1,14 @@
+const {
+  createProduct,
+  readProducts,
+  readProductWithSlug,
+  readProductsWithCategory,
+  deleteProduct,
+  likeOrUnLikeProduct
+} = require('../controllers/products.controller')
+
+const verifyJWT = require('../middleware/verifyJWT')
+const verifyJWTOptional = require('../middleware/verifyJWTOptional')
 module.exports = function (app) {
   app.use(function (req, res, next) {
     res.header(
