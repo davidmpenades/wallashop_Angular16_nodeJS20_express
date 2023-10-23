@@ -4,32 +4,24 @@ import { QuicklinkModule, QuicklinkStrategy } from 'ngx-quicklink';
 
 const routes: Routes = [
   {
-    // Ruta para home
-    path: "",
+    path: "",// Ruta para home
     loadChildren: () => import('./home/home.module').then(m => m.HomeModule)
   },
   {
-    // Ruta para shop
-    path: "shop",
+    path: "shop", // Ruta para shop
     loadChildren: () => import('./shop/shop.module').then(m => m.ShopModule)
   },
   {
-    // Ruta para la página de detalle de producto
-    path: "detail",
+    path: "detail",// Ruta para la vista de detalle de producto
     loadChildren: () => import('./detail-product/detail-product.module').then(m => m.DetailProductModule)
   },
   {
-    // Ruta para la página de autenticación
-    path: "auth",
+    path: "auth",// Ruta para la vista de autenticación
     loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule)
   },
   {
-    path: 'profile',
+    path: 'profile',// Ruta para la vista de perfil
     loadChildren: () => import('./profile/profile.module').then(m => m.ProfileModule)
-  },
-  {
-    path: '**',
-    redirectTo: ""
   }
 ];
 

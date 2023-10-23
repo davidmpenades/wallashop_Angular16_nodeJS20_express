@@ -10,15 +10,14 @@ import { User } from 'src/app/core/model/user.model';
 })
 export class HeaderComponent {
   
-  currentUser?: User;// Declara una propiedad currentUser que puede ser un objeto User o undefined
-
-  // Constructor del componente que recibe una instancia de UserService
+  currentUser?: User; // Propiedad para almacenar los datos del usuario actual
+ // Inyecta el servicio UserService en el componente
   constructor(private userService: UserService, private router: Router) {}
 
-  // Se suscribe a cambios en el usuario actual a través del servicio UserService      
+  // Método que se ejecuta al iniciar el componente     
   ngOnInit() {
     this.userService.currentUser.subscribe((userData) => {
-      this.currentUser = userData;// Actualiza la propiedad currentUser con los datos del usuario actual
+      this.currentUser = userData;// Almacena los datos del usuario actual
     });
   }
 

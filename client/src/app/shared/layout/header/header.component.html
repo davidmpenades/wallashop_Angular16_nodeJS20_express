@@ -51,6 +51,8 @@
           <a class="nav-link">Link</a>
         </li>
       </ul>
+      <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+        <li>
         <button *appShowAuthed="false" class="btn btn-outline-success fw-bold"
           type="submit"
           [routerLink]="['/auth']">Login</button>
@@ -67,20 +69,17 @@
               {{currentUser?.username}}
               </a>
               <ul class="dropdown-menu" aria-labelledby="navbarDropdown1">
-                <li [routerLink]="['/profile/']"><a class="dropdown-item"><i i-bs name="person-circle"></i> profile</a></li>
-                <li [routerLink]="['/profile/editProfile']"><a class="dropdown-item"><i i-bs name="gear-fill"></i> Edit profile</a></li>
+                <li [routerLink]="['/profile/']" class="pointer"><a class="dropdown-item"><i i-bs name="person-circle"></i> profile</a></li>
+                <li [routerLink]="['/profile/editProfile']" class="pointer"><a class="dropdown-item"><i i-bs name="gear-fill"></i> Edit profile</a></li>
                 <li>
                   <hr class="dropdown-divider" />
                 </li>
-                <li (click)="logout()"><a class="dropdown-item"><i i-bs name="box-arrow-right"></i> logout</a></li>
+                <li (click)="logout()" class="pointer"><a class="dropdown-item"><i i-bs name="box-arrow-right"></i> logout</a></li>
               </ul>
             </li>
-            <li (click)="logout()"><a class="dropdown-item" href><i i-bs
-                  name="box-arrow-right"></i> logout</a></li>
           </ul>
         </li>
       </ul>
-
     </div>
   </div>
 </nav>

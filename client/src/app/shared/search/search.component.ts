@@ -19,10 +19,7 @@ export class SearchComponent {
   codeUrl: string = '';
   constructor(private router: Router, private route: ActivatedRoute) {}
 
-  // Método ngOnInit, que se ejecuta durante la inicialización del componente
-  // Suscribe a cambios en los parámetros de la ruta
-    // Verifica si hay parámetros en la URL
-      // Obtiene y decodifica el parámetro 'fil' de la URL si está presente
+  // Método que se ejecuta al iniciar el componente
 ngOnInit(): void {
   this.route.params.subscribe((params: Params) => {
     if (Object.keys(params).length != 0) {
@@ -32,8 +29,7 @@ ngOnInit(): void {
   });
 }
 
-// Método para enviar una búsqueda y navegar a la página de resultados con los filtros
-  // Navega a la página de resultados con los filtros codificados en la URL
+// Método para aplicar los filtros y navegar a la página principal de tienda
 sendSearch() {
   this.router.navigate(['/filters', btoa(JSON.stringify(this.filters))]);
 }

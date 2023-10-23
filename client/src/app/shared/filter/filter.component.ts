@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { ActivatedRoute, Params, Route, Router } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Category } from 'src/app/core';
 import { Filters } from 'src/app/core/model/filters.model';
 
@@ -23,19 +23,16 @@ export class FilterComponent {
   constructor(private router: Router,
     private route: ActivatedRoute,
   ) { }
+  @Input() categories!: Category[]; // Recibe las categorías del componente padre
+  @Output() newtitleCategory = new EventEmitter<any>(); // Emite el título de la categoría al componente padre
 
-  // Decoradores @Input y @Output para recibir y emitir datos hacia/desde el componente padre
-  @Input() categories!: Category[];
-  @Output() newtitleCategory = new EventEmitter<any>();
-
-  // Suscribe a cambios en los parámetros de la ruta para actualizar los filtros
-  // Obtiene el código de la URL y actualiza los valores de los filtros
+  // Método que se ejecuta al iniciar el componente
   ngOnInit(): void {
     this.route.params.subscribe((params: Params) => {
       if (Object.keys(params).length != 0) {
-        this.codeUrl = params['fil'] == undefined ? '' : params['fil'];
-        this.filters2.text = JSON.parse(atob(this.codeUrl)).text;
-        this.filters2.price_max = JSON.parse(atob(this.codeUrl)).price_max;
+        this.codeUrl = params['fil'] == undefined ? '' : params['fil'];// Recoge los filtros de la url
+        this.filters2.text = JSON.parse(atob(this.codeUrl)).text;// Decodifica los filtros de la url
+        this.filters2.price_max = JSON.parse(atob(this.codeUrl)).price_max;// Decodifica los filtros de la url
         this.filters2.price_min = JSON.parse(atob(this.codeUrl)).price_min;
         if (JSON.parse(atob(this.codeUrl)).category != '') {
           this.filters2.category = JSON.parse(atob(this.codeUrl)).category;
@@ -45,9 +42,7 @@ export class FilterComponent {
     });
   }
 
-  // Método para establecer los filtros y navegar a la página de resultados
-  // Navega a la página de resultados con los filtros codificados en la URL
-  // Actualiza el título de la categoría y emite el evento al componente padre
+  // Método para aplicar los filtros y navegar a la página principal de tienda
   setFilters() {
     this.router.navigate(['/filters', btoa(JSON.stringify(this.filters2))]);
     this.titleCategory = this.categories.filter(categ => categ.slug == this.filters2.category)[0].title

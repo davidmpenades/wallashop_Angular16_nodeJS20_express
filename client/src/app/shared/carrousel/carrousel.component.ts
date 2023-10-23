@@ -32,6 +32,13 @@ export class CarrouselComponent {
     // Verifica si no estamos en la última diapositiva
       // Incrementa el índice
         // Llama a la función para ir a la diapositiva actual
+  
+  // async nextSlide() {
+  //   if (this.currentIndex < this.items.length - 1) {
+  //     this.currentIndex++;
+  //     await this.goToCurrentIndex();
+  //   }
+  // }
 
   async nextSlide() {
     if (this.currentIndex < this.items.length - (this.elementRow.nativeElement.clientWidth / this.elementRow.nativeElement.children[0].clientWidth)) {

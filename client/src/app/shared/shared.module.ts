@@ -11,6 +11,7 @@ import { FilterComponent } from './filter/filter.component';
 import { SearchComponent } from './search/search.component';
 import { FormsModule } from '@angular/forms';
 import { ShowAuthedDirective } from './show-authed.directive';
+import { LikesComponent } from './likes/likes.component';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { ShowAuthedDirective } from './show-authed.directive';
     CardCarrouselComponent,
     FilterComponent,
     SearchComponent,
-      ShowAuthedDirective
+    ShowAuthedDirective,
+    LikesComponent
    ],
   imports: [
     CommonModule,
@@ -40,7 +42,8 @@ import { ShowAuthedDirective } from './show-authed.directive';
     SearchComponent,
     CommonModule,
     FormsModule,
-    ShowAuthedDirective
+    ShowAuthedDirective,
+    LikesComponent
   ],
 })
 export class SharedModule { }
