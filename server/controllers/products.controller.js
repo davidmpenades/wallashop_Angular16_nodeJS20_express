@@ -34,7 +34,7 @@ createProduct = asyncHandler(async (req, res) => {
     category: foundCategory.slug,
     owner
   });
-  // agregar product a la categoria
+
   await foundCategory.addProduct(product._id);
   return res.status(200).json({
     product: await product.toProductResponse(),
@@ -79,8 +79,8 @@ readProducts = asyncHandler(async (req, res) => {
   if (category) {
     query.category = category
   }
-  const readProducts = await Product.find(query).limit(limit).skip(offset).exec();//limitar la cantidad de productos que se muestran
-  const readProductsCount = await Product.find(query).countDocuments();//contar la cantidad de productos que se muestran
+  const readProducts = await Product.find(query).limit(limit).skip(offset).exec();
+  const readProductsCount = await Product.find(query).countDocuments();
 
   if (!readProducts) {
     return res.status(401).json({
@@ -88,7 +88,7 @@ readProducts = asyncHandler(async (req, res) => {
     });
   }
   return res.status(200).json({
-    products: await Promise.all(//esperar a que se resuelvan todas las promesas
+    products: await Promise.all(
       readProducts.map(async (product) => {
         return await product.toProductResponse(req.loggedin ? req.userId : false);
       })
@@ -108,6 +108,7 @@ readProductWithSlug = asyncHandler(async (req, res) => {
   return res.status(200).json(await product.toProductResponse(req.loggedin ? req.userId : false));
 });
 
+// 
 readProductsWithCategory = asyncHandler(async (req, res) => {
   const { slug } = req.body;
   const category = await Category.findOne({ slug }).exec();
