@@ -21,6 +21,10 @@ export class HeaderComponent {
 
   logout(){
     this.userService.purgeAuth()
-    this.router.navigate(['/'])
+    window.location.reload();
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+      this.router.navigate(['/']);
+    })
+    
   }
 }

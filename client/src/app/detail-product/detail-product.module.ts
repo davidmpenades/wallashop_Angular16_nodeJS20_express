@@ -8,12 +8,12 @@ import { SharedModule } from '../shared';
 
 @NgModule({
   declarations: [
-    DetailProductComponent
+    DetailProductComponent,
   ],
   imports: [
     CommonModule,
     DetailProductRoutingModule,
-    SharedModule
-  ]
+    SharedModule,
+    ]
 })
 export class DetailProductModule { }

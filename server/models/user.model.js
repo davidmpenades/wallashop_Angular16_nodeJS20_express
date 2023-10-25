@@ -53,6 +53,7 @@ module.exports = (mongoose, uniqueValidator, jwt) => {
     userSchema.methods.toUserResponse = function (log) {
         if (log) {
             return {
+                _id: this._id,
                 username: this.username,
                 email: this.email,
                 bio: this.bio,
@@ -61,6 +62,7 @@ module.exports = (mongoose, uniqueValidator, jwt) => {
             }
         } else {
             return {
+                _id: this._id,
                 username: this.username,
                 email: this.email,
                 bio: this.bio,

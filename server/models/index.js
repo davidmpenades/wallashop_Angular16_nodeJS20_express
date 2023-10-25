@@ -20,4 +20,6 @@ mdb.category = require("./category.model.js")(
 
 mdb.user = require("./user.model.js")(mongoose, uniqueValidator, jwt);
 
+mdb.product = require("./product.model.js")(mongoose, slugify, uniqueValidator);
+
 module.exports = mdb;

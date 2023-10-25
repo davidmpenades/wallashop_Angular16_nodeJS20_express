@@ -17,7 +17,7 @@ export class ProductService {
     return this.apiService.set('/product', data);
   }
 
-  // Método para realizar una solicitud GET para obtener productos con parámetros opcionales
+  // Método para realizar una solicitud GET para obtener todos los productos
   get(params: any): Observable<{products: Product[], total_products: number}> {
     return this.apiService.get('/product', params);
   }
@@ -27,7 +27,6 @@ export class ProductService {
     return this.apiService.getBySlug('/product/detail', slug);
   }
 
-  // Método para realizar una solicitud GET para obtener productos por la categoría
   getBySlugCategory(slug: string): Observable<Product[]> {
     return this.apiService.getBySlug('/productsByCategory', slug);
   }
@@ -47,5 +46,8 @@ export class ProductService {
   // Método para realizar una solicitud PUT para actualizar un producto
   updateProd(data: {}): Observable<any> {
     return this.apiService.update('/product', data);
+  }
+  setLike(data: {}): Observable<any> {
+    return this.apiService.set('/product/like', data);
   }
 }

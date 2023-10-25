@@ -53,4 +53,8 @@ export class ApiService {
   update(path: string, data: {}): Observable<any> {
     return this.http.put(`${environment.api_url}${path}`, data);
   }
+
+  getById(path: string): Observable<any> {    
+    return this.http.get(`${environment.api_url}${path}`);
+  }
 }

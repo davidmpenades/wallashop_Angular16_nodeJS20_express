@@ -14,6 +14,10 @@ const routes: Routes = [
         path: 'editProfile',
         component: SettingsComponent,
         canActivate: [AuthGuard]
+    },
+    {
+        path: ':id',
+        component: ProfileComponent,
     }
 ]
 

@@ -1,0 +1,17 @@
+.icon {
+    display: none;
+    transition: 0.5s;
+    &.liked {
+      color: #ca0000;
+    }
+    &.active {
+      display: block;
+    }
+  }
+p{
+  position: absolute;
+  font-size: 10px;
+  right: 0;
+  left: 0;
+  text-align: center;
+}

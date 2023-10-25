@@ -44,7 +44,7 @@ module.exports = (mongoose, slugify, uniqueValidator) => {
     return object;
   });
 
-  schema.methods.toProductResponse = async function (userId) {
+  schema.methods.toProductResponse = async function (userId, data) {
     return {
       slug: this.slug,
       title: this.title,
@@ -54,7 +54,8 @@ module.exports = (mongoose, slugify, uniqueValidator) => {
       category: this.category,
       owner: this.owner,
       liked: this.likes.includes(userId),
-      countLikes: this.countLikes
+      countLikes: this.countLikes,
+      ownerData: data
     };
   };
 

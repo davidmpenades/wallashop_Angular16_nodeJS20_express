@@ -1,8 +1,14 @@
+import { UserOwner } from "./user.model";
+
 export interface Product {
-  slug: String,
-  title: String,
-  description: String,
+  slug: string,
+  title: string,
+  description: string,
   price: Number,
-  imgs: String[],
-  category: String
+  imgs: string[],
+  category: string,
+  liked: Boolean,
+  countLikes: number,
+  owner: string,
+  ownerData?: UserOwner 
 }

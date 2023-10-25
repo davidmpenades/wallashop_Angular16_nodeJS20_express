@@ -34,6 +34,12 @@ const verifyJWT = require("../middleware/verifyJWT");
       getCurrentUser
     )
 
+    app.get(
+      "/user/profile/:id",
+      [],
+      getCurrentUser
+    )
+    
     app.put(
       "/user/update",
       [

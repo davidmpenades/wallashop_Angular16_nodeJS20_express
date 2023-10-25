@@ -3,14 +3,10 @@
     [routerLink]="['/detail', data.slug]">
     <div class="cont-img">
       <img src="{{ data.imgs[0] }}" />
-      <div class="like-cont">
-        <i-bs name="heart" class="icon nactive" width="24" height="24">
-        </i-bs>
-        <i-bs name="heart-fill" class="icon active liked"
-          width="24"
-          height="24">
-        </i-bs>
+      <div class="like-cont">        
+        <app-likes [product]="data" (click)="stop($event);" (isLiked)="setLike($event)"></app-likes>
       </div>
+      
     </div>
     <div class="info-wrap">
       <div class="row-4">

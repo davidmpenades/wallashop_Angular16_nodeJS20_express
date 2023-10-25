@@ -40,34 +40,21 @@ export class UserService {
     return this.currentUserSubject.value;
   }
   
-  // guarda jwt que viene desde el server en localstorage
-  // Set current user data into observable
-  // cambia isAuthenticated a true
   setAuth(data: any) {
     this.jwtService.saveToken(data.token);
     this.currentUserSubject.next(data);
     this.isAuthenticatedSubject.next(true);
   }
-
-  // Método para purgar la autenticación (cerrar sesión)
-    // Destruye el token almacenado en el almacenamiento local
-    // Establece el sujeto del usuario actual como un objeto de usuario vacío
-    // Establece el sujeto de autenticación como falso
+ 
   purgeAuth() {
     this.jwtService.destroyToken();
     this.currentUserSubject.next({} as User);
     this.isAuthenticatedSubject.next(false);
   }
 
-  // Método para intentar autenticar o registrar a un usuario
-    // Utiliza el servicio ApiService para hacer una solicitud POST a la ruta '/users' con las credenciales
-    // Si se recibe respuesta correcta, llama al método setAuth y pasa los datos del usuario
-    // Utiliza el operador 'map' para transformar la respuesta de la solicitud
-      // Llama al método 'setAuth' para establecer la autenticación con los datos del usuario
-      // Devuelve los datos completos de la respuesta (incluyendo el usuario)
   attempAuth(type: string, credentials: Register): Observable<any> {
-    const route = (type === 'login') ? '/users/login' : '/users';
-    return this.apiService.post(route , credentials).pipe(
+    const route = (type === 'login') ? '/users/login' : '/users';// Si el tipo es login, la ruta es /users/login, si no, es /users
+    return this.apiService.post(route , credentials).pipe(// Hace una petición post a la ruta y con las credenciales
       map((data) => {
         this.setAuth(data.user);
         return data;
@@ -83,5 +70,9 @@ export class UserService {
       this.currentUserSubject.next(data.user);
       return data.user;
     }));
+  }
+
+  getUserById(id: string): Observable<User> {
+    return this.apiService.getById('/user/profile/'+id)
   }
 }

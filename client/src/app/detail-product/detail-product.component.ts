@@ -9,8 +9,9 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./detail-product.component.scss'],
 })
 export class DetailProductComponent {
-  product!: Product;
+  product: Product = {} as Product;
   images!: String[];
+  owner?: String;
 
   constructor(
     private productService: ProductService,
@@ -18,24 +19,27 @@ export class DetailProductComponent {
   ) {}
 
   // Obtiene el valor del parámetro 'slug' desde la URL usando ActivatedRoute
-  prod= this.route.snapshot.paramMap.get('slug');
 
   ngOnInit(): void {
+  
+
         // Verifica si 'prod' tiene un valor y llama a 'get_product' si es así
-    if(this.prod){
-      this.get_product(this.prod);
+    if(this.route.snapshot.paramMap.get('slug')){
+      this.get_product(this.route.snapshot.paramMap.get('slug'));
     }
   }
 
-    // Método para obtener detalles del producto por su slug
-      // Callback 'next' que se ejecuta cuando la solicitud es exitosa
-        // Asigna los datos del producto y las imágenes a las propiedades del componente
-  get_product(prod: string) {
+  // Obtiene el producto por su slug
+  get_product(prod: any) {
     this.productService.getBySlug(prod).subscribe({
       next: (data) => {
+        console.log(data);
         this.product = data;
+        console.log(this.product);
+        
         this.images = this.product.imgs
       },
+      error: (err) => console.error(err),
     });
   }
 }
