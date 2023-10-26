@@ -36,7 +36,7 @@ registerUser = asyncHandler(async (req, res) => {
 
   if (createdUser) {
     res.status(201).json({
-      user: createdUser.toUserResponse(true),
+      user: createdUser.toLoginResponse(),
     });
   } else {
     res.status(422).json({
@@ -48,15 +48,15 @@ registerUser = asyncHandler(async (req, res) => {
 });
 
 getCurrentUser = asyncHandler(async (req, res) => {
-    
   let user;
 
   if (req.params.id) {
     const id = req.params.id;
     user = await User.findById(id).exec();
-    res.status(200).json(
-         user.toUserResponse(false),
-      );
+
+    return res
+      .status(200)
+      .json(user.toUserResponse(req.loggedin ? req.userId : false));
   } else {
     const email = req.userEmail;
 
@@ -68,7 +68,31 @@ getCurrentUser = asyncHandler(async (req, res) => {
   }
 
   res.status(200).json({
-    user: user.toUserResponse(false),
+    user: user.toUserResponse(),
+  });
+});
+
+followOrUnfollowUser = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+  const userId = req.userId;
+
+  const userProfile = await User.findOne({ _id: id }).exec();
+  if (!userProfile) {
+    return res.status(404).json({ message: "User Not Found" });
+  }
+
+  const userLogged = await User.findOne({ _id: userId }).exec();
+
+  if (!userLogged) {
+    return res.status(404).json({ message: "User Not Found" });
+  }
+
+  (await userProfile.toUserResponse(userLogged._id).followers)
+    ? await userLogged.unfollow(userProfile)
+    : await userLogged.follow(userProfile);
+
+  res.status(200).json({
+    message: "success",
   });
 });
 
@@ -91,7 +115,7 @@ userLogin = asyncHandler(async (req, res) => {
     return res.status(401).json({ message: "Unauthorized: Wrong password" });
 
   res.status(200).json({
-    user: loginUser.toUserResponse(true),
+    user: loginUser.toLoginResponse(),
   });
 });
 
@@ -137,7 +161,7 @@ updateUser = asyncHandler(async (req, res) => {
   await target.save();
 
   return res.status(200).json({
-    user: target.toUserResponse(true),
+    user: target.toLoginResponse(),
   });
 });
 
@@ -146,4 +170,5 @@ module.exports = {
   getCurrentUser,
   userLogin,
   updateUser,
+  followOrUnfollowUser,
 };

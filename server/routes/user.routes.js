@@ -1,8 +1,9 @@
 
 const {
-    registerUser, userLogin, getCurrentUser, updateUser
+    registerUser, userLogin, getCurrentUser, updateUser, followOrUnfollowUser
   } = require("../controllers/user.controller");
 const verifyJWT = require("../middleware/verifyJWT");
+const verifyJWTOptional = require("../middleware/verifyJWTOptional");
   
   module.exports = function (app) {
     app.use(function (req, res, next) {
@@ -36,8 +37,18 @@ const verifyJWT = require("../middleware/verifyJWT");
 
     app.get(
       "/user/profile/:id",
-      [],
+      [
+        verifyJWTOptional
+      ],
       getCurrentUser
+    )
+
+    app.put(
+      "/user/profile/:id",
+      [
+        verifyJWT
+      ],
+      followOrUnfollowUser
     )
     
     app.put(
