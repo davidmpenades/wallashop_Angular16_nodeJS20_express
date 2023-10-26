@@ -1,81 +1,52 @@
 <!DOCTYPE html>
-<html lang="es">
-    <head>
-        <meta charset="UTF-8">
-        <title>Wallashop</title>
-    </head>
-    <body>
-        <h1>Wallashop</h1>
-        <p>
-            Este GitHub es un proyecto de tienda online desarrollado con Angular
-            16, Node.js 20 y Express.
-        </p>
-        <p>
-            El proyecto está dividido en dos partes:
-            <ul>
-                <li>
-                    La parte front-end, desarrollada con Angular 16, es la
-                    encargada de la interfaz de usuario.
-                </li>
-                <li>
-                    La parte back-end, desarrollada con Node.js 20 y Express, es
-                    la encargada de la lógica del negocio y la persistencia de
-                    datos.
-                </li>
-            </ul>
-        </p>
-        <p>
-            El proyecto se encuentra en desarrollo, pero ya es posible
-            utilizarlo para crear una tienda online básica.
-        </p>
-        <p>
-            Para obtener más información, consulta la documentación del
-            proyecto:
-            <ul>
-                <li>
-                    <a
-                        href="https://github.com/kevposesp/wallashop_Angular16_nodeJS20_express.git/blob/main/README.md">Documentación
-                        general</a>
-                </li>
-                <li>
-                    <a
-                        href="https://github.com/kevposesp/wallashop_Angular16_nodeJS20_express.git/blob/main/docs/front-end.md">Documentación
-                        de la parte front-end</a>
-                </li>
-                <li>
-                    <a
-                        href="https://github.com/kevposesp/wallashop_Angular16_nodeJS20_express.git/blob/main/docs/back-end.md">Documentación
-                        de la parte back-end</a>
-                </li>
-            </ul>
-        </p>
-        <p>
-            Las características de la tienda online incluyen:
-            <ul>
-                <li>Registro y login de usuarios</li>
-                <li>Catálogo de productos</li>
-                <li>Carro de la compra</li>
-                <li>Pago con tarjeta de crédito</li>
-            </ul>
-        </p>
-        <p>
-            Para instalar y configurar el proyecto, sigue estos pasos:
-            <ol>
-                <li>Crea una cuenta en GitHub.</li>
-                <li>Clona el proyecto en tu ordenador.</li>
-                <li>Instala las dependencias del proyecto.</li>
-                <li>Inicia el servidor web.</li>
-            </ol>
-        </p>
-        <p>
-            Para utilizar el proyecto, sigue estos pasos:
-            <ol>
-                <li>Abre un navegador web.</li>
-                <li>Navega a la dirección http://localhost:4200/.</li>
-                <li>Registrate o inicia sesión.</li>
-                <li>Elige un producto y añádelo al carrito de la compra.</li>
-                <li>Confirma la compra.</li>
-            </ol>
-        </p>
-    </body>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wallashop: Angular 16 + Node.js 20 + Express</title>
+    <meta name="author" content="kevposesp">
+    <meta name="author" content="davidmpenades">
+</head>
+
+<body>
+    <h1>Wallashop</h1>
+    <p>Proyecto que combina Angular 16, Node.js 20 y Express para crear una aplicación web de compras en línea.</p>
+    <h2>Imágenes del Proyecto</h2>
+    <p>Aquí puedes ver algunas imágenes de la aplicación:</p>
+        <pre><code>Home</code></pre>
+    <img src="./imgs/home.png" width="500px" alt="Captura de pantalla 1"><br><br>
+        <pre><code>Shop</code></pre>
+    <img src="./imgs/shop.png" width="500px" alt="Captura de pantalla 2"><br><br>
+        <pre><code>Login</code></pre>
+    <img src="./imgs/login.png" width="500px" alt="Captura de pantalla 3"><br><br>
+        <pre><code>Register</code></pre>
+    <img src="./imgs/register.png" width="500px" alt="Captura de pantalla 3"><br><br>
+    <h2>Instalación</h2>
+    <p>Para ejecutar este proyecto localmente, sigue estos pasos:</p>
+    <ol>
+        <li>Clona este repositorio en tu máquina local:</li>
+        <pre><code>git clone https://github.com/kevposesp/wallashop_Angular16_nodeJS20_express.git</code></pre>
+        <li>Instala las dependencias de Angular y Node.js:</li>
+        <pre><code>cd wallashop_Angular16_nodeJS20_express</code></pre>
+        <pre><code>cd server
+npm install
+cd ../client
+npm install</code></pre>
+        <li>Configura las variables de entorno necesarias.</li>
+        <li>Ejecuta el servidor Node.js y la aplicación Angular:</li>
+        <pre><code>cd ..
+npm start</code></pre>
+    </ol>
+    <h2>Uso</h2>
+    <p>Una vez que el servidor esté en funcionamiento, puedes acceder a la aplicación a través de tu navegador en
+        <code>http://localhost:3000</code>.
+    </p>
+    <h2>Autores</h2>
+    <p>Este proyecto fue desarrollado por kevposesp y davidmpenades.</p>
+    <h2>Licencia</h2>
+    <p>Este proyecto está bajo la Licencia MIT. Consulta el archivo <a href="LICENSE">LICENSE</a> para obtener más
+        detalles.</p>
+</body>
+
 </html>
