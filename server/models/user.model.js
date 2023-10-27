@@ -79,7 +79,9 @@ module.exports = (mongoose, uniqueValidator, jwt) => {
             bio: this.bio,
             image: this.image,
             following: this.following.includes(userId),
-            followers: this.followers.includes(userId)
+            followers: this.followers.includes(userId),
+            countFollowing: this.following.length,
+            countFollowers: this.followers.length
         }
     }
 

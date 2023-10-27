@@ -86,14 +86,19 @@ followOrUnfollowUser = asyncHandler(async (req, res) => {
   if (!userLogged) {
     return res.status(404).json({ message: "User Not Found" });
   }
-
-  (await userProfile.toUserResponse(userLogged._id).followers)
+  
+ if(id != userId){
+  (await userProfile.toUserResponse(userLogged._id).following)
     ? await userLogged.unfollow(userProfile)
     : await userLogged.follow(userProfile);
-
-  res.status(200).json({
-    message: "success",
+    res.status(200).json({
+      message: "success",
+    });
+ }else{
+  res.status(401).json({
+    message: "No puedes seguirte a ti mismo",
   });
+ }  
 });
 
 userLogin = asyncHandler(async (req, res) => {
