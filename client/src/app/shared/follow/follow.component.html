@@ -1,2 +1,4 @@
-<button class="btn btn-success" *ngIf="followed" (click)="followUser()"> UnFollow </button>
-<button class="btn btn-outline-success" *ngIf="!followed" (click)="followUser()"> Follow </button>
+<div class="profile-card-ctr">
+  <button class="profile-card__button button--orange" *ngIf="followed" (click)="followUser()">UnFollow</button>
+  <button class="profile-card__button button--green" *ngIf="!followed" (click)="followUser()">Follow</button>
+</div>

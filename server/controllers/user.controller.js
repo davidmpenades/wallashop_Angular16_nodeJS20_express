@@ -3,6 +3,7 @@ const asyncHandler = require("express-async-handler");
 const bcrypt = require("bcrypt");
 
 const User = mdb.user;
+const Product = mdb.product;
 
 registerUser = asyncHandler(async (req, res) => {
   const { username, password, email } = req.body;
@@ -56,7 +57,7 @@ getCurrentUser = asyncHandler(async (req, res) => {
 
     return res
       .status(200)
-      .json(user.toUserResponse(req.loggedin ? req.userId : false));
+      .json(await user.toUserResponse(req.loggedin ? req.userId : false));
   } else {
     const email = req.userEmail;
 
@@ -68,7 +69,7 @@ getCurrentUser = asyncHandler(async (req, res) => {
   }
 
   res.status(200).json({
-    user: user.toUserResponse(),
+    user: await user.toUserResponse(),
   });
 });
 
@@ -86,19 +87,19 @@ followOrUnfollowUser = asyncHandler(async (req, res) => {
   if (!userLogged) {
     return res.status(404).json({ message: "User Not Found" });
   }
-  
- if(id != userId){
-  (await userProfile.toUserResponse(userLogged._id).following)
-    ? await userLogged.unfollow(userProfile)
-    : await userLogged.follow(userProfile);
+
+  if (id != userId) {
+    (await userProfile.toUserResponse(userLogged._id).followers)
+      ? await userLogged.unfollow(userProfile)
+      : await userLogged.follow(userProfile);
     res.status(200).json({
       message: "success",
     });
- }else{
-  res.status(401).json({
-    message: "No puedes seguirte a ti mismo",
-  });
- }  
+  } else {
+    res.status(401).json({
+      message: "No puedes seguirte a ti mismo",
+    });
+  }
 });
 
 userLogin = asyncHandler(async (req, res) => {
@@ -170,10 +171,55 @@ updateUser = asyncHandler(async (req, res) => {
   });
 });
 
+getFollowingUsers = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+
+  const user = await User.findOne({ _id: id }).exec();
+  if (!user) {
+    return res.status(404).json({ message: "User Not Found" });
+  }
+
+  const following = await User.find({ _id: { $in: user.following } }).exec();
+
+  res.status(200).json(
+    await Promise.all(
+      following.map(async (followedUser) => {
+        const followingUserProducts = await Product.count({ owner: followedUser._id }).exec()
+        return await followedUser.toUserResponse(req.loggedin ? req.userId : false, followingUserProducts)
+      })
+    )
+  );
+});
+
+getFollowersOfUser = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+
+  const user = await User.findOne({ _id: id }).exec();
+  if (!user) {
+    return res.status(404).json({ message: "User Not Found" });
+  }
+
+  const followers = await User.find({ following: { $in: [id] } }).exec();
+
+  res.status(200).json(
+    await Promise.all(
+      followers.map(async (followedUser) => {
+        const followerUserProducts = await Product.count({ owner: followedUser._id }).exec()
+        return await followedUser.toUserResponse(req.loggedin ? req.userId : false, followerUserProducts)
+      })
+    )
+  );
+});
+
+
+
+
 module.exports = {
   registerUser,
   getCurrentUser,
   userLogin,
   updateUser,
   followOrUnfollowUser,
+  getFollowingUsers,
+  getFollowersOfUser
 };

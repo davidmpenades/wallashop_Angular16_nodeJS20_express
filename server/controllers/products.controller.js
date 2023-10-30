@@ -103,7 +103,7 @@ readProducts = asyncHandler(async (req, res) => {
         const user = await User.findOne({ _id: product.owner });
         return await product.toProductResponse(
           req.loggedin ? req.userId : false,
-          user ? user.toUserResponse(false) : false
+          user ? await user.toUserResponse(false) : false
         );
       })
     ),
@@ -126,7 +126,7 @@ readProductWithSlug = asyncHandler(async (req, res) => {
     .json(
       await product.toProductResponse(
         req.loggedin ? req.userId : false,
-        user ? user.toUserResponse(false) : false
+        user ? await user.toUserResponse(false) : false
       )
     );
 });
@@ -149,7 +149,7 @@ readProductsWithCategory = asyncHandler(async (req, res) => {
 
         const res = await productObj.toProductResponse(
           req.loggedin ? req.userId : false,
-          user ? user.toUserResponse(false) : false
+          user ? await user.toUserResponse(false) : false
         );
         return res;
       })
