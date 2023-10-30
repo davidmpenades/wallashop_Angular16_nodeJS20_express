@@ -22,4 +22,6 @@ mdb.user = require("./user.model.js")(mongoose, uniqueValidator, jwt);
 
 mdb.product = require("./product.model.js")(mongoose, slugify, uniqueValidator);
 
+mdb.comment = require("./comment.model.js")(mongoose, mdb.user)
+
 module.exports = mdb;

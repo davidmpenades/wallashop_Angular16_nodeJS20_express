@@ -24,7 +24,11 @@ module.exports = (mongoose, slugify, uniqueValidator) => {
       countLikes: {
         type: Number,
         default: 0
-      }
+      },
+      comments:[{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "comment"
+      }]
     },
     { timestamps: true }
   );
@@ -74,6 +78,20 @@ module.exports = (mongoose, slugify, uniqueValidator) => {
     }
     return this.save();
   };
+
+  schema.methods.addComment = function (userId) {
+    if (this.comments.indexOf(userId) === -1) {
+      this.comments.push(userId);
+    }
+    return this.save();
+  };
+
+  schema.methods.removeComment = function (commentId){
+    if(this.comments.indexOf(commentId) !== -1){
+      this.comments.remove(commentId)
+    }
+    return this.save()
+  }
 
   const Product = mongoose.model("product", schema);
 

@@ -34,6 +34,7 @@ app.use(express.urlencoded({ extended: true }));
 require("./routes/category.routes")(app);
 require("./routes/product.routes")(app);
 require("./routes/user.routes")(app);
+require("./routes/comment.routes")(app)
 
 // Iniciar el servidor
 // set port, listen for requests
