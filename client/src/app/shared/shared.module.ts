@@ -13,10 +13,11 @@ import { FormsModule } from '@angular/forms';
 import { ShowAuthedDirective } from './show-authed.directive';
 import { LikesComponent } from './likes/likes.component';
 import { FollowComponent } from './follow/follow.component';
+import { CardUserComponent } from './cards/card-user/card-user.component';
 
 
 @NgModule({
-  declarations: [	
+  declarations: [
     ListProductsComponent,
     CardProductComponent,
     CarrouselComponent,
@@ -25,7 +26,8 @@ import { FollowComponent } from './follow/follow.component';
     SearchComponent,
     ShowAuthedDirective,
     LikesComponent,
-    FollowComponent
+    FollowComponent,
+    CardUserComponent
    ],
   imports: [
     CommonModule,
@@ -46,7 +48,8 @@ import { FollowComponent } from './follow/follow.component';
     FormsModule,
     ShowAuthedDirective,
     LikesComponent,
-    FollowComponent
+    FollowComponent,
+    CardUserComponent
   ],
 })
 export class SharedModule { }

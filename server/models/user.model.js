@@ -24,15 +24,15 @@ module.exports = (mongoose, uniqueValidator, jwt) => {
             type: String,
             default: "https://100k-faces.glitch.me/random-image"
         },
-        following:[{
+        following: [{
             type: mongoose.Schema.Types.ObjectId,
             ref: "user"
         }],
-        followers:[{
+        followers: [{
             type: mongoose.Schema.Types.ObjectId,
             ref: "user"
         }],
-        
+
     },
         {
             timestamps: true
@@ -59,7 +59,7 @@ module.exports = (mongoose, uniqueValidator, jwt) => {
         return accessToken;
     }
 
-    userSchema.methods.toLoginResponse = function () {       
+    userSchema.methods.toLoginResponse = function () {
         return {
             _id: this._id,
             username: this.username,
@@ -68,10 +68,10 @@ module.exports = (mongoose, uniqueValidator, jwt) => {
             image: this.image,
             token: this.generateAccessToken()
         }
-        
+
     };
 
-    userSchema.methods.toUserResponse = function (userId = false) {        
+    userSchema.methods.toUserResponse = function(userId = false, countProducts = 0) {
         return {
             _id: this._id,
             username: this.username,
@@ -81,11 +81,12 @@ module.exports = (mongoose, uniqueValidator, jwt) => {
             following: this.following.includes(userId),
             followers: this.followers.includes(userId),
             countFollowing: this.following.length,
-            countFollowers: this.followers.length
+            countFollowers: this.followers.length,
+            countProducts: countProducts
         }
     }
 
-    userSchema.methods.follow = function (toFollow) {        
+    userSchema.methods.follow = function (toFollow) {
         this.addFollowing(toFollow._id)
         toFollow.addFollowers(this._id)
     }
@@ -95,34 +96,34 @@ module.exports = (mongoose, uniqueValidator, jwt) => {
         toUnFollow.removeFollowers(this._id)
     }
 
-    userSchema.methods.addFollowing = function(id){
-        if(this.following.indexOf(id) === -1){
+    userSchema.methods.addFollowing = function (id) {
+        if (this.following.indexOf(id) === -1) {
             this.following.push(id);
         }
         return this.save();
     }
 
-    userSchema.methods.addFollowers = function(id){
-        if(this.followers.indexOf(id) === -1){
+    userSchema.methods.addFollowers = function (id) {
+        if (this.followers.indexOf(id) === -1) {
             this.followers.push(id)
         }
         return this.save()
     }
 
-    userSchema.methods.removeFollowing = function(id){
-        if(this.following.indexOf(id) !== -1){
+    userSchema.methods.removeFollowing = function (id) {
+        if (this.following.indexOf(id) !== -1) {
             this.following.remove(id);
         }
         return this.save();
     }
 
-    userSchema.methods.removeFollowers = function(id){
-        if(this.followers.indexOf(id) !== -1){
+    userSchema.methods.removeFollowers = function (id) {
+        if (this.followers.indexOf(id) !== -1) {
             this.followers.remove(id);
         }
         return this.save();
     }
-    
+
     const User = mongoose.model("user", userSchema)
     return User
 

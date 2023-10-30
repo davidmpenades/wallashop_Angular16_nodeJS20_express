@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ApiService } from './api.service';
 import { BehaviorSubject, Observable, ReplaySubject, distinctUntilChanged, map } from 'rxjs';
-import { Register, User } from '../model/user.model';
+import { Follower, Register, User } from '../model/user.model';
 import { JwtService } from './jwt.service';
 
 @Injectable({
@@ -24,7 +24,7 @@ export class UserService {
     if (token) {
 
       this.apiService.get("/user/profile").subscribe(
-        (data) => {           
+        (data) => {
           return this.setAuth({ ...data.user, token });
         },
         (err) => {this.purgeAuth(); console.log(err);
@@ -39,13 +39,13 @@ export class UserService {
   getCurrentUser(): User {
     return this.currentUserSubject.value;
   }
-  
+
   setAuth(data: any) {
     this.jwtService.saveToken(data.token);
     this.currentUserSubject.next(data);
     this.isAuthenticatedSubject.next(true);
   }
- 
+
   purgeAuth() {
     this.jwtService.destroyToken();
     this.currentUserSubject.next({} as User);
@@ -74,5 +74,17 @@ export class UserService {
 
   getUserById(id: string): Observable<User> {
     return this.apiService.getById('/user/profile/'+id)
+  }
+
+  follow(id: string): Observable<any> {
+    return this.apiService.put('/user/profile/'+id)
+  }
+
+  getUsersFollowers(id: string): Observable<Follower[]> {
+    return this.apiService.getById('/user/profile/followers/'+id)
+  }
+
+  getUsersFollowings(id: string): Observable<Follower[]> {
+    return this.apiService.getById('/user/profile/followings/'+id)
   }
 }
