@@ -29,8 +29,8 @@ export class AuthComponent {
       passwordRepeat: [''],
     });
     this.loginForm = this.formbuilder.group({
-      email: [''],
-      password: ['']
+      email: ['david@gmail.com'],
+      password: ['david']
     });
   }
 

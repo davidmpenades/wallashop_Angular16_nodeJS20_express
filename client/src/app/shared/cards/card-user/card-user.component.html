@@ -1,0 +1,37 @@
+<div class="wrapper">
+  <div class="profile-card js-profile-card">
+    <div class="profile-card__img">
+      <img src="{{data.image}}"
+        alt="profile card">
+    </div>
+
+    <div class="profile-card__cnt js-profile-cnt">
+      <div class="profile-card__name" (click)="goToProfile(data._id)">{{data.username}}</div>
+      <div class="profile-card__txt">{{data.bio}}</div>
+
+      <div class="profile-card-inf">
+        <div class="profile-card-inf__item">
+          <div class="profile-card-inf__title">{{data.countFollowers}}</div>
+          <div class="profile-card-inf__txt">Followers</div>
+        </div>
+
+        <div class="profile-card-inf__item">
+          <div class="profile-card-inf__title">{{data.countFollowing}}</div>
+          <div class="profile-card-inf__txt">Following</div>
+        </div>
+
+        <div class="profile-card-inf__item">
+          <div class="profile-card-inf__title">{{data.countProducts}}</div>
+          <div class="profile-card-inf__txt">Products</div>
+        </div>
+
+      </div>
+
+      <div class="profile-card-ctr">
+        <app-follow [followed]="data.followers" [idFollower]="data._id" *ngIf="!itsMe" (follow)="follow($event)"></app-follow>
+      </div>
+    </div>
+
+  </div>
+
+</div>

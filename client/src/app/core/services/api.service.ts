@@ -15,13 +15,13 @@ export class ApiService {
     return this.http.post(`${environment.api_url}${path}`, data);
   }
 
-  // Método para realizar una solicitud POST 
+  // Método para realizar una solicitud POST
   post(path:string, data:{}): Observable<any>{
     return this.http.post(`${environment.api_url}${path}`, data);
   }
 
   // Método para realizar una solicitud GET
-  get(path: string, params: HttpParams = new HttpParams()): Observable<any> {    
+  get(path: string, params: HttpParams = new HttpParams()): Observable<any> {
     return this.http.get(`${environment.api_url}${path}`, { params });
   }
 
@@ -54,7 +54,7 @@ export class ApiService {
     return this.http.put(`${environment.api_url}${path}`, data);
   }
 
-  getById(path: string): Observable<any> {    
+  getById(path: string): Observable<any> {
     return this.http.get(`${environment.api_url}${path}`);
   }
 }

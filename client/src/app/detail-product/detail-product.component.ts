@@ -21,7 +21,7 @@ export class DetailProductComponent {
   // Obtiene el valor del parámetro 'slug' desde la URL usando ActivatedRoute
 
   ngOnInit(): void {
-  
+
 
         // Verifica si 'prod' tiene un valor y llama a 'get_product' si es así
     if(this.route.snapshot.paramMap.get('slug')){
@@ -33,10 +33,7 @@ export class DetailProductComponent {
   get_product(prod: any) {
     this.productService.getBySlug(prod).subscribe({
       next: (data) => {
-        console.log(data);
         this.product = data;
-        console.log(this.product);
-        
         this.images = this.product.imgs
       },
       error: (err) => console.error(err),

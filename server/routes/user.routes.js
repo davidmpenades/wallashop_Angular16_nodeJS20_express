@@ -1,6 +1,6 @@
 
 const {
-    registerUser, userLogin, getCurrentUser, updateUser, followOrUnfollowUser
+    registerUser, userLogin, getCurrentUser, updateUser, followOrUnfollowUser, getFollowingUsers, getFollowersOfUser
   } = require("../controllers/user.controller");
 const verifyJWT = require("../middleware/verifyJWT");
 const verifyJWTOptional = require("../middleware/verifyJWTOptional");
@@ -57,6 +57,22 @@ const verifyJWTOptional = require("../middleware/verifyJWTOptional");
         verifyJWT
       ],
       updateUser
+    )
+
+    app.get(
+      "/user/profile/followings/:id",
+      [
+        verifyJWTOptional
+      ],
+      getFollowingUsers
+    )
+    
+    app.get(
+      "/user/profile/followers/:id",
+      [
+        verifyJWTOptional
+      ],
+      getFollowersOfUser
     )
 
   }
