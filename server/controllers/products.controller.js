@@ -52,6 +52,8 @@ readProducts = asyncHandler(async (req, res) => {
     offset = 0,
     limit = 8,
     category = null,
+    owner = null,
+    profileLikes = null
   } = req.query;
 
   let query = {
@@ -63,6 +65,16 @@ readProducts = asyncHandler(async (req, res) => {
       },
     ],
   };
+
+  if (owner && owner != '') {
+    query.owner = owner
+  }
+  
+  if (profileLikes && profileLikes != '') {
+    query.likes = {
+      $in: profileLikes
+    }
+  }
 
   if (parseInt(price_min) < parseInt(price_max)) {
     query.$and.push({ price: { $lte: price_max } });

@@ -15,6 +15,8 @@ export class SearchComponent {
     price_max: 0,
     price_min: 0,
     category: '',
+    owner: '',
+    profileLikes: ''
   };
   codeUrl: string = '';
   constructor(private router: Router, private route: ActivatedRoute) {}

@@ -66,6 +66,12 @@
             <li (click)="pageActive = 'following'" [ngClass]="{'active ': pageActive == 'following'}">
               <a>Following</a>
             </li>
+            <li (click)="pageActive = 'products'" [ngClass]="{'active ': pageActive == 'products'}">
+              <a>Products</a>
+            </li>
+            <li (click)="pageActive = 'favourites'" [ngClass]="{'active ': pageActive == 'favourites'}">
+              <a>Favourites</a>
+            </li>
             <li *ngIf="itsMe">
               <a [routerLink]="['/profile/editProfile/']">Edit Profile</a>
             </li>
@@ -89,6 +95,22 @@
       <div class="container">
         <div class="row">
           <app-card-user *ngFor="let follow of followings" [data]="follow" class="col-md-12 col-md-6 col-lg-6"></app-card-user>
+        </div>
+      </div>
+    </section>
+    <section class="profile-feed" *ngIf="pageActive == 'products'">
+      <h2>Products</h2>
+      <div class="container">
+        <div class="row">
+          <app-list-products [scrollOn]="true" [owner]="user._id"></app-list-products>
+        </div>
+      </div>
+    </section>
+    <section class="profile-feed" *ngIf="pageActive == 'favourites'">
+      <h2>Products</h2>
+      <div class="container">
+        <div class="row">
+          <app-list-products [scrollOn]="true" [profileLikes]="user._id"></app-list-products>
         </div>
       </div>
     </section>

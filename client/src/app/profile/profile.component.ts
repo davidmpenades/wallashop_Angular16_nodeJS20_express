@@ -12,7 +12,7 @@ export class ProfileComponent implements OnInit {
   user: User = {} as User;
   currentUser: User = {} as User;
   itsMe: boolean = false;
-  pageActive: string = 'followers'
+  pageActive: string = 'products'
   idRoute: string = this.route.snapshot.paramMap.get('id')!
 
   followers: Follower[] = [];

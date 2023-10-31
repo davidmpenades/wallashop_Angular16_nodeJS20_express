@@ -63,8 +63,12 @@
       overflow: hidden;
     }
     .rated {
+      width: inherit;
       font-size: 12px;
       color: #b3b4b6;
+      &:last-child {
+        margin-left: auto;
+      }
     }
   }
   .bottom-wrap {
