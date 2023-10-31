@@ -30,30 +30,31 @@ export class DetailProductComponent {
   constructor(
     private productService: ProductService,
     private route: ActivatedRoute
-  ) {}
+  ) { }
 
   // Obtiene el valor del parámetro 'slug' desde la URL usando ActivatedRoute
 
   ngOnInit(): void {
-
-
-        // Verifica si 'prod' tiene un valor y llama a 'get_product' si es así
-    if(this.route.snapshot.paramMap.get('slug')){
-      this.get_product(this.route.snapshot.paramMap.get('slug'));
-    }
+    this.route.data.subscribe(
+      (data: any) => {
+        this.product = data.product;
+        this.images = this.product.imgs
+        this.getProducts()
+      }
+    );
   }
 
   // Obtiene el producto por su slug
-  get_product(prod: any) {
-    this.productService.getBySlug(prod).subscribe({
-      next: (data) => {
-        this.product = data;
-        this.images = this.product.imgs
-        this.getProducts()
-      },
-      error: (err) => console.error(err),
-    });
-  }
+  // get_product(prod: any) {
+  //   this.productService.getBySlug(prod).subscribe({
+  //     next: (data) => {
+  //       this.product = data;
+  //       this.images = this.product.imgs
+  //       this.getProducts()
+  //     },
+  //     error: (err) => console.error(err),
+  //   });
+  // }
 
   async getProducts() {
 
@@ -61,7 +62,7 @@ export class DetailProductComponent {
 
     this.productService.get(params).subscribe({
       next: (data) => {
-        this.productsReleated = data.products.filter((prod)=> prod.slug != this.product.slug)
+        this.productsReleated = data.products.filter((prod) => prod.slug != this.product.slug)
       },
     });
   }
