@@ -3,7 +3,7 @@ body {
 }
 
 .card {
- 
+
 }
 .main-image{
   max-height: 450px;
@@ -71,10 +71,14 @@ label.radio input:checked+span {
 .cart i {
   margin-right: 10px
 }
-@media (max-width: 767.98px) { 
+@media (max-width: 767.98px) {
   .product-cont{
     margin-top: 10px;
   }
 }
 
 @media (max-width: 991.98px) {  }
+
+.more-releated {
+  overflow: hidden;
+}
