@@ -18,15 +18,13 @@ module.exports = (mongoose) => {
       timestamps: true 
   });
   
-  commentSchema.methods.toCommentResponse = async function (user) {
-    console.log(user);
+  commentSchema.methods.toCommentResponse = async function (user, data) {
       return{
           id: this._id,
           body: this.body,
           author: this.author,
-          isAuthor: user == this.author ? true : false,
-          createdAt: this.createdAt,
-          updatedAt: this.updatedAt
+          isAuthor: user == this.author ? true : false,  
+          ownerData: data
       }
 
   }

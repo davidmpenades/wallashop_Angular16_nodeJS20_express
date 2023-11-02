@@ -57,4 +57,7 @@ export class ApiService {
   getById(path: string): Observable<any> {
     return this.http.get(`${environment.api_url}${path}`);
   }
+  deleteComment(path: string): Observable<any> {
+    return this.http.delete(`${environment.api_url}${path}`);
+  }
 }
