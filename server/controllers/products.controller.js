@@ -103,7 +103,7 @@ readProducts = asyncHandler(async (req, res) => {
         const user = await User.findOne({ _id: product.owner });
         return await product.toProductResponse(
           req.loggedin ? req.userId : false,
-          user ? await user.toUserResponse(false) : false
+          user ? await user.toUserResponse() : false
         );
       })
     ),
