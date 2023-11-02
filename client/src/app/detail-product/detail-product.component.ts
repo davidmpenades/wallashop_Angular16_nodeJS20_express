@@ -34,11 +34,13 @@ export class DetailProductComponent {
 
   id: string = ''
   slug: string = this.route.snapshot.paramMap.get('slug')!
+
   constructor(
     private productService: ProductService,
     private commentService: CommentService,
     private route: ActivatedRoute,
-    private tosatr: ToastrService
+    private tosatr: ToastrService,
+    private userService: UserService
   ) {}
 
   ngOnInit(): void {
@@ -67,11 +69,6 @@ export class DetailProductComponent {
   async getProducts() {
 
     const params = await this.getRequestParams();
-        // Verifica si 'prod' tiene un valor y llama a 'get_product' si es así
-    if(this.slug){
-      this.get_product(this.slug);
-    }
-  }
 
     this.productService.get(params).subscribe({
       next: (data) => {
@@ -100,7 +97,7 @@ export class DetailProductComponent {
         window.location.reload();
       },
       error: (err) => console.error(err),
-    });      
+    });
   }
 
 }
