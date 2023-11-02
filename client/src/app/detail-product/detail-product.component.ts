@@ -1,10 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { Product } from '../core/model/product.model';
 import { ProductService, UserService } from '../core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpParams } from '@angular/common/http';
 import { Filters } from '../core/model/filters.model';
 import { BehaviorSubject } from 'rxjs';
+import { CommentService } from '../core/services/comment.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-detail-product',
@@ -30,11 +32,14 @@ export class DetailProductComponent {
     profileLikes: ''
   };
 
+  id: string = ''
+  slug: string = this.route.snapshot.paramMap.get('slug')!
   constructor(
     private productService: ProductService,
+    private commentService: CommentService,
     private route: ActivatedRoute,
-    private userService: UserService
-  ) { }
+    private tosatr: ToastrService
+  ) {}
 
   ngOnInit(): void {
     this.route.data.subscribe(
@@ -62,6 +67,11 @@ export class DetailProductComponent {
   async getProducts() {
 
     const params = await this.getRequestParams();
+        // Verifica si 'prod' tiene un valor y llama a 'get_product' si es así
+    if(this.slug){
+      this.get_product(this.slug);
+    }
+  }
 
     this.productService.get(params).subscribe({
       next: (data) => {
@@ -83,4 +93,14 @@ export class DetailProductComponent {
 
     return params;
   }
+  delId(id:string) {
+    this.commentService.deleteComment(this.slug, id).subscribe({
+      next: (data) => {
+        this.tosatr.success('Comentario eliminado', 'Comentario');
+        window.location.reload();
+      },
+      error: (err) => console.error(err),
+    });      
+  }
+
 }
