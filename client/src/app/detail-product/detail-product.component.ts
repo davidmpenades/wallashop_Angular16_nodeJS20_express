@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { Product } from '../core/model/product.model';
-import { ProductService } from '../core';
+import { ProductService, UserService } from '../core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpParams } from '@angular/common/http';
 import { Filters } from '../core/model/filters.model';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-detail-product',
@@ -15,6 +16,8 @@ export class DetailProductComponent {
   images!: String[];
   owner?: String;
   productsReleated: Product[] = [];
+  iOwner: boolean = false
+  dataObservable = new BehaviorSubject<any>({} as Product);
 
   filters: Filters = {
     limit: 6,
@@ -29,32 +32,32 @@ export class DetailProductComponent {
 
   constructor(
     private productService: ProductService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private userService: UserService
   ) { }
-
-  // Obtiene el valor del parámetro 'slug' desde la URL usando ActivatedRoute
 
   ngOnInit(): void {
     this.route.data.subscribe(
       (data: any) => {
+        this.dataObservable.next(data.product);
         this.product = data.product;
         this.images = this.product.imgs
+        this.userService.currentUser.subscribe((userData) => {
+          if (userData._id === this.product.owner) {
+            this.iOwner = true
+          } else {
+            this.iOwner = false
+          }
+        });
         this.getProducts()
       }
     );
+    this.userService.currentUser.subscribe((userData) => {
+      if (userData._id === this.product.owner) {
+        this.iOwner = true
+      }
+    });
   }
-
-  // Obtiene el producto por su slug
-  // get_product(prod: any) {
-  //   this.productService.getBySlug(prod).subscribe({
-  //     next: (data) => {
-  //       this.product = data;
-  //       this.images = this.product.imgs
-  //       this.getProducts()
-  //     },
-  //     error: (err) => console.error(err),
-  //   });
-  // }
 
   async getProducts() {
 

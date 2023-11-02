@@ -11,7 +11,7 @@
           <li>
             <div class="profile-name">
               <strong>
-                <a href="#">{{user.username}}</a>
+                <a>{{user.username}}</a>
                 <a href="#" class="user-status is-online tooltip-primary" data-toggle="tooltip" data-placement="top"
                   data-original-title="Online"></a>
               </strong>
@@ -21,7 +21,7 @@
             </div>
           </li>
           <li>
-            <div class="profile-stat">
+            <div class="profile-stat text-center">
               <h3>{{user.countFollowers}}</h3>
               <span>
                 <a href="#">followers</a>
@@ -29,7 +29,7 @@
             </div>
           </li>
           <li>
-            <div class="profile-stat">
+            <div class="profile-stat text-center">
               <h3>{{user.countFollowing}}</h3>
               <span>
                 <a href="#">following</a>
@@ -40,7 +40,8 @@
       </div>
       <div class="col-sm-3">
         <div class="profile-buttons">
-          <app-follow [followed]="user.followers" [idFollower]="idRoute" *ngIf="!itsMe" (follow)="follow($event)"></app-follow>
+          <app-follow [followed]="user.followers" [idFollower]="idRoute" *ngIf="!itsMe"
+            (follow)="follow($event)"></app-follow>
         </div>
       </div>
     </header>
@@ -72,6 +73,10 @@
             <li (click)="pageActive = 'favourites'" [ngClass]="{'active ': pageActive == 'favourites'}">
               <a>Favourites</a>
             </li>
+            <li *ngIf="itsMe" (click)="pageActive = 'createProduct'"
+              [ngClass]="{'active ': pageActive == 'createProduct'}">
+              <a>Create Product</a>
+            </li>
             <li *ngIf="itsMe">
               <a [routerLink]="['/profile/editProfile/']">Edit Profile</a>
             </li>
@@ -86,7 +91,8 @@
       <h2>Followers</h2>
       <div class="container">
         <div class="row">
-          <app-card-user *ngFor="let follow of followers" [data]="follow" class="col-md-12 col-md-6 col-lg-6"></app-card-user>
+          <app-card-user *ngFor="let follow of followers" [data]="follow"
+            class="col-md-12 col-md-6 col-lg-6"></app-card-user>
         </div>
       </div>
     </section>
@@ -94,7 +100,8 @@
       <h2>Followings</h2>
       <div class="container">
         <div class="row">
-          <app-card-user *ngFor="let follow of followings" [data]="follow" class="col-md-12 col-md-6 col-lg-6"></app-card-user>
+          <app-card-user *ngFor="let follow of followings" [data]="follow"
+            class="col-md-12 col-md-6 col-lg-6"></app-card-user>
         </div>
       </div>
     </section>
@@ -111,6 +118,13 @@
       <div class="container">
         <div class="row">
           <app-list-products [scrollOn]="true" [profileLikes]="user._id"></app-list-products>
+        </div>
+      </div>
+    </section>
+    <section class="profile-feed" *ngIf="pageActive == 'createProduct' && itsMe">
+      <div class="container">
+        <div class="row">
+          <app-create-product></app-create-product>
         </div>
       </div>
     </section>

@@ -1,0 +1,44 @@
+<div class="create-product">
+  <div class="container page">
+    <div class="row">
+      <div class="">
+        <h2 class="text-xs-center">{{ editEnable ? "" : "Create Product" }}
+        </h2>
+
+        <form [formGroup]="productForm" (ngSubmit)="controllerSubmit()">
+              <input class="form-control"
+                type="text"
+                formControlName="title"
+                placeholder="Titulo del producto"/>
+
+              <textarea class="form-control form-control-lg"
+                rows="8"
+                formControlName="description"
+                placeholder="Descripcion del producto">
+              </textarea>
+
+              <input class="form-control"
+                type="number"
+                formControlName="price"
+                placeholder="Precio"/>
+
+              <textarea class="form-control form-control-lg"
+                rows="8"
+                formControlName="imgs"
+                placeholder="Urls de las imagenes separadas por ,">
+              </textarea>
+
+              <select class="form-control form-select" formControlName="category">
+                  <option selected value="">Todas las categorías</option>
+                  <option  *ngFor="let category of categories" [value]="category.slug">{{category.title}}</option>
+              </select>
+
+            <button class="btn btn-lg btn-primary pull-xs-right"
+              type="submit">
+              {{ editEnable ? "Edit Product" : "Create Product" }}
+            </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
