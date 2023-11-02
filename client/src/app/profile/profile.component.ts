@@ -12,7 +12,7 @@ export class ProfileComponent implements OnInit {
   user: User = {} as User;
   currentUser: User = {} as User;
   itsMe: boolean = false;
-  pageActive: string = 'followers'
+  pageActive: string = 'createProduct'
   idRoute: string = this.route.snapshot.paramMap.get('id')!
 
   followers: Follower[] = [];
@@ -39,7 +39,6 @@ export class ProfileComponent implements OnInit {
   getUser(id: string) {
     if (id) {
       this.userService.getUserById(id).subscribe((data) => {
-        console.log(data);
         this.user = data;
       })
     } else {
@@ -52,12 +51,10 @@ export class ProfileComponent implements OnInit {
   getFollowers(id: string){
     if (id) {
       this.userService.getUsersFollowers(id).subscribe((data) => {
-        console.log(data);
         this.followers = data
       })
     } else {
       this.userService.getUsersFollowers(this.user._id).subscribe((data) => {
-        console.log(data);
         this.followers = data
       })
     }
@@ -66,12 +63,10 @@ export class ProfileComponent implements OnInit {
   getFollowings(id: string){
     if (id) {
       this.userService.getUsersFollowings(id).subscribe((data) => {
-        console.log(data);
         this.followings = data
       })
     } else {
       this.userService.getUsersFollowings(this.user._id).subscribe((data) => {
-        console.log(data);
         this.followings = data
       })
     }

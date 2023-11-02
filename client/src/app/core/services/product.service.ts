@@ -13,7 +13,7 @@ export class ProductService {
   constructor(private apiService: ApiService) {}
 
   // Método para realizar una solicitud POST para agregar un nuevo producto
-  set(data: {}): Observable<Product[]> {
+  set(data: {}): Observable<Product> {
     return this.apiService.set('/product', data);
   }
 
@@ -30,11 +30,11 @@ export class ProductService {
   getBySlugCategory(slug: string): Observable<Product[]> {
     return this.apiService.getBySlug('/productsByCategory', slug);
   }
-  
+
   // Método para realizar una solicitud GET para obtener productos con filtros
   getProductsWithFilters(filters: Filters): Observable<{products:Product[], total_products: number}>{
     let params = {}
-    params = filters    
+    params = filters
     return this.apiService.get('product', new HttpParams({fromObject: params}));
   }
 

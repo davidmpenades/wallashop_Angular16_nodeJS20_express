@@ -4,7 +4,8 @@ const {
   readProductWithSlug, 
   readProductsWithCategory, 
   deleteProduct, 
-  likeOrUnLikeProduct 
+  likeOrUnLikeProduct, 
+  updateProduct
 } = require('../controllers/products.controller')
 const verifyJWT = require('../middleware/verifyJWT')
 const verifyJWTOptional = require('../middleware/verifyJWTOptional')
@@ -62,5 +63,13 @@ module.exports = function (app) {
       verifyJWT
     ],
     likeOrUnLikeProduct
+  )
+
+  app.put(
+    "/product",
+    [
+      verifyJWT
+    ],
+    updateProduct
   )
 };

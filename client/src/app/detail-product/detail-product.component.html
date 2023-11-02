@@ -39,13 +39,46 @@
               <i class="fa fa-heart text-muted"></i>
               <i class="fa fa-share-alt text-muted"></i>
             </div>
-            <div
-              class="owner mt-4 align-items-center"
-              [routerLink]="['/profile', product.ownerData?._id]"
-            >
-              Subido por: {{ product.ownerData?.username }}
-              <div></div>
+            <div class="owner mt-4 align-items-center" [routerLink]="['/profile',product.ownerData?._id]">Subido por:
+              {{product.ownerData?.username}}
             </div>
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createProductModal"
+              *ngIf="iOwner">
+              Edit
+            </button>
+            <div class="modal fade" id="createProductModal" tabindex="-1" aria-labelledby="createProductModalLabel"
+              aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="createProductModalLabel">Editar Producto</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    <app-create-product [editProduct]="product" [dataObservable]="dataObservable" [editEnable]="true"></app-create-product>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-10">
+      <div class="row">
+        <div class="col-12">
+          <div class="more-releated">
+            <h5 class="my-4">More related products</h5>
+            <app-carrousel [items]="productsReleated">
+              <ng-container *ngFor="let item of productsReleated">
+                <div class="col-md-4 col-lg-3">
+                  <app-card-product [data]="item"></app-card-product>
+                </div>
+              </ng-container>
+            </app-carrousel>
           </div>
         </div>
       </div>
