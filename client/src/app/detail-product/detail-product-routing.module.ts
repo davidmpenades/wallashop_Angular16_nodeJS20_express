@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DetailProductComponent } from './detail-product.component';
+import { ProductResolver } from './product-resolver.service';
 
 // Define las rutas para el módulo de enrutamiento
 const routes: Routes = [
@@ -9,6 +10,9 @@ const routes: Routes = [
     path: ':slug',
     // Asocia la ruta con el componente DetailProductComponent
     component: DetailProductComponent,
+    resolve: {
+      product: ProductResolver
+    }
   },
 ];
 

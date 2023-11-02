@@ -16,6 +16,8 @@ export class FilterComponent {
     price_max: 0,
     price_min: 0,
     category: '',
+    owner: '',
+    profileLikes: ''
   };
   codeUrl: string = ''
   titleCategory: String = ''

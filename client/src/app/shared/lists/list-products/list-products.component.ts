@@ -22,6 +22,8 @@ export class ListProductsComponent implements OnInit {
     price_max: 0,
     price_min: 0,
     category: '',
+    owner: '',
+    profileLikes: ''
   };
   pages: Array<Number> = [];
   text: string = '';
@@ -32,6 +34,8 @@ export class ListProductsComponent implements OnInit {
 
   @Input() scrollOn: boolean = false;
   @Input() filtersOn: boolean = false;
+  @Input() owner: string = '';
+  @Input() profileLikes: string = '';
 
   constructor(
     private productService: ProductService,
@@ -143,7 +147,9 @@ export class ListProductsComponent implements OnInit {
       .set('text', this.filters.text)
       .set('price_max', this.filters.price_max.toString())
       .set('price_min', this.filters.price_min.toString())
-      .set('category', this.filters.category);
+      .set('category', this.filters.category)
+      .set('owner', this.owner)
+      .set('profileLikes', this.profileLikes)
 
     return params;
   }

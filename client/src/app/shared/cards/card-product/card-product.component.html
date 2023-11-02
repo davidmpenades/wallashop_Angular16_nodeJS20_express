@@ -1,18 +1,20 @@
 <div class="container">
-  <div class="card card-product-grid card-lg"
-    [routerLink]="['/detail', data.slug]">
+  <div class="card card-product-grid card-lg" [routerLink]="['/detail', data.slug]">
     <div class="cont-img">
       <img src="{{ data.imgs[0] }}" />
-      <div class="like-cont">        
+      <div class="like-cont">
         <app-likes [product]="data" (click)="stop($event);" (isLiked)="setLike($event)"></app-likes>
       </div>
-      
     </div>
     <div class="info-wrap">
       <div class="row-4">
         <div class="col-md-12 col-xs-12 title">{{ data.title }}</div>
         <div class="col-md-12 col-xs-12">
-          <span class="rated">Rated 4.0/5</span>
+          <div class="row">
+            <span class="rated">Rated 4.0/5</span>
+            <span class="rated" [routerLink]="['/profile', data.owner]"
+              (click)="stop($event)">{{data.ownerData?.username}}</span>
+          </div>
           <div class="rating text-right">
             <i-bs name="star-fill">
             </i-bs>

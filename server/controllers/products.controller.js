@@ -38,9 +38,7 @@ createProduct = asyncHandler(async (req, res) => {
   });
 
   await foundCategory.addProduct(product._id);
-  return res.status(200).json({
-    product: await product.toProductResponse(),
-  });
+  return res.status(200).json(await product.toProductResponse());
 });
 
 // Read All Products
@@ -52,6 +50,8 @@ readProducts = asyncHandler(async (req, res) => {
     offset = 0,
     limit = 8,
     category = null,
+    owner = null,
+    profileLikes = null
   } = req.query;
 
   let query = {
@@ -63,6 +63,16 @@ readProducts = asyncHandler(async (req, res) => {
       },
     ],
   };
+
+  if (owner && owner != '') {
+    query.owner = owner
+  }
+
+  if (profileLikes && profileLikes != '') {
+    query.likes = {
+      $in: profileLikes
+    }
+  }
 
   if (parseInt(price_min) < parseInt(price_max)) {
     query.$and.push({ price: { $lte: price_max } });
@@ -195,9 +205,8 @@ likeOrUnLikeProduct = asyncHandler(async (req, res) => {
     // Return updated response with status code and data
     return res.status(200).send({
       success: true,
-      message: `You ${
-        product.likes.includes(userId) ? "" : "un"
-      }liked this product`,
+      message: `You ${product.likes.includes(userId) ? "" : "un"
+        }liked this product`,
     });
   } catch (error) {
     console.log("Error al intentar dar like o dislike", error);
@@ -208,6 +217,31 @@ likeOrUnLikeProduct = asyncHandler(async (req, res) => {
   }
 });
 
+updateProduct = asyncHandler(async (req, res) => {
+  const { slug, title, description, price, imgs, category } = req.body;
+
+  if (!slug) {
+    return res.status(400).json({ message: "Slug is required to update a product" });
+  }
+
+  const product = await Product.findOne({ slug }).exec();
+
+  if (!product) {
+    return res.status(404).json({ message: "Product not found" });
+  }
+
+  if (title) product.title = title;
+  if (description) product.description = description;
+  if (price) product.price = price;
+  if (imgs) product.imgs = imgs;
+  if (category) product.category = category;
+
+  await product.save();
+
+  return res.status(200).json(await product.toProductResponse());
+
+});
+
 const productController = {
   createProduct,
   readProducts,
@@ -215,5 +249,6 @@ const productController = {
   readProductsWithCategory,
   readProductWithSlug,
   likeOrUnLikeProduct,
+  updateProduct
 };
 module.exports = productController;

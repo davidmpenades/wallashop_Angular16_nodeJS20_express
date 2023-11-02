@@ -5,4 +5,6 @@ export interface Filters{
     price_min: number;
     price_max: number;
     category: string;
+    owner: string;
+    profileLikes: string;
 }

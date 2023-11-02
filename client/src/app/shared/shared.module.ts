@@ -9,11 +9,12 @@ import { HttpClientModule } from '@angular/common/http';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { FilterComponent } from './filter/filter.component';
 import { SearchComponent } from './search/search.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ShowAuthedDirective } from './show-authed.directive';
 import { LikesComponent } from './likes/likes.component';
 import { FollowComponent } from './follow/follow.component';
 import { CardUserComponent } from './cards/card-user/card-user.component';
+import { CreateProductComponent } from './create-product/create-product.component';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import { CardUserComponent } from './cards/card-user/card-user.component';
     ShowAuthedDirective,
     LikesComponent,
     FollowComponent,
-    CardUserComponent
+    CardUserComponent,
+    CreateProductComponent
    ],
   imports: [
     CommonModule,
@@ -35,7 +37,8 @@ import { CardUserComponent } from './cards/card-user/card-user.component';
     NgxBootstrapIconsModule.pick(allIcons),
     HttpClientModule,
     InfiniteScrollModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   exports: [
     ListProductsComponent,
@@ -49,7 +52,8 @@ import { CardUserComponent } from './cards/card-user/card-user.component';
     ShowAuthedDirective,
     LikesComponent,
     FollowComponent,
-    CardUserComponent
+    CardUserComponent,
+    CreateProductComponent
   ],
 })
 export class SharedModule { }
