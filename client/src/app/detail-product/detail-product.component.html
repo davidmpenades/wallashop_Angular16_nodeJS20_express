@@ -46,6 +46,7 @@
               *ngIf="iOwner">
               Edit
             </button>
+            <app-delete-product [iOwner]="iOwner" (delete)="deleteProduct()"></app-delete-product>
             <div class="modal fade" id="createProductModal" tabindex="-1" aria-labelledby="createProductModalLabel"
               aria-hidden="true">
               <div class="modal-dialog">
