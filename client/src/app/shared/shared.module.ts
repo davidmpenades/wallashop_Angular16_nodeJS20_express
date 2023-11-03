@@ -15,6 +15,7 @@ import { LikesComponent } from './likes/likes.component';
 import { FollowComponent } from './follow/follow.component';
 import { CardUserComponent } from './cards/card-user/card-user.component';
 import { CreateProductComponent } from './create-product/create-product.component';
+import { DeleteProductComponent } from './delete-product/delete-product.component';
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import { CreateProductComponent } from './create-product/create-product.componen
     LikesComponent,
     FollowComponent,
     CardUserComponent,
-    CreateProductComponent
+    CreateProductComponent,
+    DeleteProductComponent
    ],
   imports: [
     CommonModule,
@@ -53,7 +55,8 @@ import { CreateProductComponent } from './create-product/create-product.componen
     LikesComponent,
     FollowComponent,
     CardUserComponent,
-    CreateProductComponent
+    CreateProductComponent,
+    DeleteProductComponent
   ],
 })
 export class SharedModule { }
