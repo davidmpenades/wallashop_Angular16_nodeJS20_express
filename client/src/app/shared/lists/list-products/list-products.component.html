@@ -38,7 +38,7 @@
             <li
               class="page-item"
               [ngClass]="{ disabled: currentPage < 2 }"
-              (click)="setPage(currentPage - 1)">
+              (click)="setPage(currentPage < 2 ? currentPage : currentPage - 1)">
               <a class="page-link" tabindex="-1">Anterior</a>
             </li>
             <li
@@ -51,7 +51,7 @@
             <li
               class="page-item"
               [ngClass]="{ disabled: currentPage > pages.length - 1 }"
-              (click)="setPage(currentPage + 1)">
+              (click)="setPage(currentPage > pages.length - 1 ? currentPage : currentPage + 1)">
               <a class="page-link">Siguiente</a>
             </li>
           </ul>

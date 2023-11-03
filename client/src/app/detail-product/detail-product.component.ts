@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { Product } from '../core/model/product.model';
 import { ProductService, UserService } from '../core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { HttpParams } from '@angular/common/http';
 import { Filters } from '../core/model/filters.model';
 import { BehaviorSubject } from 'rxjs';
@@ -39,6 +39,7 @@ export class DetailProductComponent {
     private productService: ProductService,
     private commentService: CommentService,
     private route: ActivatedRoute,
+    private router: Router,
     private tosatr: ToastrService,
     private userService: UserService
   ) {}
@@ -98,6 +99,19 @@ export class DetailProductComponent {
       },
       error: (err) => console.error(err),
     });
+  }
+
+  deleteProduct() {
+    this.productService.deleteProduct(this.product.slug).subscribe({
+      next: (data) => {
+        this.tosatr.success("Se ha eliminado correctamente", "Eliminado")
+        this.router.navigate(["/"])
+      },
+      error: (err) => {
+        console.log(err);
+        this.tosatr.success("Producto no eliminado", "Fallo interno")
+      }
+    })
   }
 
 }
